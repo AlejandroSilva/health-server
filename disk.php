@@ -22,6 +22,7 @@ function getPartSpace($type)
 	 }
 	$command = "df -Ht ext4 | grep /";
 	exec($command, $exit);
+	$result = array();
 	foreach ($exit as $line) {
 		$line = explode(' ', preg_replace('/\s+/', ' ', $line));
 		$result[$line[5]] = $line[$pos];
