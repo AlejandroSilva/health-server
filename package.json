@@ -4,9 +4,14 @@
   "description": "nodo heath para el envio de informacion del sistema",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node index.js",
-    "server": "babel-node index.js",
-    "test": "NODE_ENV=testing ./node_modules/.bin/mocha --compilers js:babel/register --timeout 5000 test/api-v1.js "
+    "server-prod": "## Servidor en produccion ahun no implementado",
+    "server-dev": "babel-node server.js --source-maps --watch",
+    "server-test": "NODE_ENV=testing babel-node server.js --source-maps --watch",
+    "start": "npm run server-dev",
+    "dev": "npm run server-dev",
+    "mocha-v1-info": "NODE_ENV=testing ./node_modules/.bin/mocha --compilers js:babel/register --timeout 5000 test/v1.info.js ",
+    "mocha-v1-server": "NODE_ENV=testing ./node_modules/.bin/mocha --compilers js:babel/register --timeout 8000 test/v1.server.js ",
+    "test": "npm run mocha-v1-server"
   },
   "author": "toth.cl",
   "license": "ISC",

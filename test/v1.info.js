@@ -7,9 +7,9 @@ import app from '../server/app.js';
 
 describe('API v1', function(){
 
-    it('GET /v1/cpu', function (done) {
+    it('GET /v1/info/cpu', function (done) {
         request(app)
-            .get('/v1/cpu')
+            .get('/v1/info/cpu')
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function(err, res){
@@ -23,9 +23,9 @@ describe('API v1', function(){
             })
     });
 
-    it('GET /v1/ram', function (done) {
+    it('GET /v1/info/ram', function (done) {
         request(app)
-            .get('/v1/ram')
+            .get('/v1/info/ram')
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function(err, res){
@@ -38,9 +38,9 @@ describe('API v1', function(){
             })
     });
 
-    it('GET /v1/disc', function (done) {
+    it('GET /v1/info/disc', function (done) {
         request(app)
-            .get('/v1/disc')
+            .get('/v1/info/disc')
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function(err, res){
@@ -55,9 +55,9 @@ describe('API v1', function(){
             })
     });
 
-    it('GET /v1/discIO', function (done) {
+    it('GET /v1/info/discIO', function (done) {
         request(app)
-            .get('/v1/discIO')
+            .get('/v1/info/discIO')
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function(err, res){
@@ -70,9 +70,9 @@ describe('API v1', function(){
             })
     });
 
-    it('GET /v1/netIO', function (done) {
+    it('GET /v1/info/netIO', function (done) {
         request(app)
-            .get('/v1/netIO')
+            .get('/v1/info/netIO')
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function(err, res){
@@ -87,9 +87,9 @@ describe('API v1', function(){
             })
     });
 
-    it('GET /v1/ping', function (done) {
+    it('GET /v1/info/ping', function (done) {
         request(app)
-            .get('/v1/ping')
+            .get('/v1/info/ping')
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function(err, res){
@@ -108,9 +108,9 @@ describe('API v1', function(){
             })
     });
 
-    it('GET /v1/ping/jaidefinichon.cl', function (done) {
+    it('GET /v1/info/ping/jaidefinichon.cl', function (done) {
         request(app)
-            .get('/v1/ping/jaidefinichon.cl')
+            .get('/v1/info/ping/jaidefinichon.cl')
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function(err, res){

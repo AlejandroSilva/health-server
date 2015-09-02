@@ -4,7 +4,6 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 
-import apiV1 from './api/v1/routes.js';
 let app = express();
 
 /**
@@ -25,6 +24,7 @@ app.use(morgan('combined'));
 app.get('/', function (req, res) {
     res.send('hello world');
 });
-app.use('/v1/', apiV1);
+import v1 from './v1';
+app.use('/v1/', v1);
 
 export default app;

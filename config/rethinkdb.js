@@ -1,18 +1,18 @@
 let tables = [
     {
-        name: 'users',
+        name: 'User',
         options: {
             primaryKey: 'id',
             durability: 'soft' // writes will be acknowledged by the server immediately and flushed to disk in the background.
         }
     },{
-        name: 'config',
+        name: 'Config',
         options: {
             primaryKey: 'id',
             durability: 'soft'
         }
     },{
-        name: 'servers',
+        name: 'Server',
         options: {
             primaryKey: 'id',
             durability: 'soft'

@@ -53,13 +53,38 @@ export function createTable(conn, name, options){
     });
 }
 
-
 export function createTables(conn){
     let tablesPromises = [];
     config.rethinkdb.db_tables.forEach( (table)=>{
         tablesPromises.push( createTable(conn, table.name, table.options) );
     });
     return Promise.all( tablesPromises );
+}
+
+export function save(table, data){
+    return new Promise( (resolve, reject)=>{
+        r.connect()
+            .then((conn)=>{
+                r.db(config.rethinkdb.db_name).table(table).insert(data).run(conn)
+                    .then(resolve)
+                    .catch(reject)
+            })
+            .catch(reject);
+    })
+}
+
+export function read(table, filter){
+    return new Promise( (resolve, reject)=>{
+        r.connect()
+            .then((conn)=>{
+                r.db(config.rethinkdb.db_name).table(table).filter(filter).run(conn)
+                    .then( (cursor)=>{
+                        resolve(cursor.toArray());
+                    })
+                    .catch(reject)
+            })
+            .catch(reject);
+    })
 }
 
 export function setup(){
