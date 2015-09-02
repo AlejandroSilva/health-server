@@ -1,0 +1,26 @@
+{
+  "name": "health-server",
+  "version": "1.0.0",
+  "description": "nodo heath para el envio de informacion del sistema",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel-node index.js",
+    "server": "babel-node index.js",
+    "test": "NODE_ENV=testing ./node_modules/.bin/mocha --compilers js:babel/register --timeout 5000 test/api-v1.js "
+  },
+  "author": "toth.cl",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.13.3",
+    "express": "^4.13.3",
+    "helmet": "^0.10.0",
+    "lodash": "^3.10.1",
+    "morgan": "^1.6.1",
+    "tcp-ping": "^0.1.1"
+  },
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "mocha": "^2.3.0",
+    "supertest": "^1.1.0"
+  }
+}
