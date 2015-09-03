@@ -3,7 +3,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
-
 let app = express();
 
 /**
@@ -15,7 +14,6 @@ app.use(bodyParser.urlencoded({
 }));
 // parse application/json
 app.use(bodyParser.json());
-// log
 app.use(morgan('combined'));
 
 /**
@@ -24,7 +22,14 @@ app.use(morgan('combined'));
 app.get('/', function (req, res) {
     res.send('hello world');
 });
+
 import v1 from './v1';
 app.use('/v1/', v1);
+
+/*
+ * Middlewares
+ */
+import errorsHandler  from './middlewares/errorsHandler.js';
+app.use(errorsHandler);
 
 export default app;

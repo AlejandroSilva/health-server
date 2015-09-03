@@ -1,52 +1,34 @@
 import express from 'express';
-let router = express.Router();
-import * as middle from '../middlewares.js'
 import * as controller from './controller.js'
+import * as auth from '../../middlewares/auth.js';
 import Server from '../../../db/Server.js';
 
-/*
- * Middlewares
- * Todas las rutas, deben conectarse a la DB y autentificarse
- */
-router.use(middle.dbConnection, middle.isAuthenticated);
-
+let router = express.Router();
 
 /*
  * Params
  */
 router.param('serverId', function(req, res, next, serverId){
-    Server.find({
-        id: serverId
+    // si existe el server que busca, lo agrega a la respuesta
+    Server.get(serverId).run()
+    .then((server)=>{
+        req.server = server;
+        next();
     })
-    .then((result)=>{
-        let server = result[0];
-        if(server){
-            req.server = server;
-            next();
-        }else{
-            res.status(404).json({
-                error: 'Server not found'
-            })
-        }
-    })
-    .catch((err)=>{
-        res.status(500).json({
-            error: err
-        });
-    })
+    // si no, llama a next(err), y ejecuta los middlewares de error
+    .catch(next)
 });
 
-
 /*
- * Rutas
+ * Rutas, middlewares y controllers
  */
 router.route('/')
     .get(controller.getAllServers)
-    .post(controller.createServer);
+    .post(auth.isAuthenticated, controller.createServer);
 
 router.route('/:serverId')
     .get(controller.getServer)
-    .put(controller.updateServer)
-    .delete(controller.deleteServer)
+    .put(auth.isAuthenticated, controller.updateServer)
+    .delete(auth.isAuthenticated, controller.deleteServer);
 
 export default router;

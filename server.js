@@ -9,14 +9,14 @@ import * as db from './db/db.js';
  */
 
 
-db.setup()
-    .then( (msg)=>{
+//db.setup()
+//    .then( (msg)=>{
         let server = app.listen(config.app.port, function() {
             console.log('Servicio iniciado en http://localhost:' + config.app.port + '/');
         });
-    })
-    .catch( (err)=>{
-        console.log('Error al iniciar el servicio...');
-        console.log(err);
-        process.exit();
-    });
+    //})
+    //.catch( (err)=>{
+    //    console.log('Error al iniciar el servicio...');
+    //    console.log(err);
+    //    process.exit();
+    //});

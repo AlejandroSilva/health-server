@@ -73,7 +73,21 @@ export function save(table, data){
     })
 }
 
-export function read(table, filter){
+export function get(table, key){
+    return new Promise( (resolve, reject)=>{
+        r.connect()
+            .then((conn)=>{
+                r.db(config.rethinkdb.db_name).table(table).get(key).run(conn)
+                    .then( (data)=>{
+                        resolve(data);
+                    })
+                    .catch(reject)
+            })
+            .catch(reject);
+    })
+}
+
+export function filter(table, filter){
     return new Promise( (resolve, reject)=>{
         r.connect()
             .then((conn)=>{
@@ -82,6 +96,21 @@ export function read(table, filter){
                         resolve(cursor.toArray());
                     })
                     .catch(reject)
+            })
+            .catch(reject);
+    })
+}
+
+export function insert(table, data){
+    return new Promise( (resolve, reject)=>{
+        r.connect()
+            .then((conn)=>{
+                r.db(config.rethinkdb.db_name).table(table).insert(data)
+                .run(conn)
+                .then( (result)=>{
+                    resolve(result);
+                })
+                .catch(reject)
             })
             .catch(reject);
     })

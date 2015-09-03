@@ -2,13 +2,13 @@ import Server from '../../../db/Server.js';
 
 // GET /v1/server/
 export function getAllServers(req, res){
-    Server.findAll()
+    Server.run()
         .then((servers)=>{
             res.json(servers);
         })
         .catch((err)=>{
             res.status(500).json({
-                error: err
+                error: err.message
             });
         })
 }
@@ -16,31 +16,35 @@ export function getAllServers(req, res){
 // POST /v1/server/
 export function createServer(req, res){
     let newServer = new Server(req.body);
-    console.log(req.body);
-    if( newServer.isValid() ){
-        newServer.save()
-            .then((data)=>{
-                res.json(newServer);
-            })
-            .catch((err)=>{
-                res.json(err);
-            })
-    }else{
-        res.status(400).json({
-            error: 'invalid params'
+    // un usuario no puede agregar el id manualmente
+    delete newServer.id;
+
+    newServer.save()
+        .then(function(result) {
+            res.json(result);
         })
-    }
+        .error((err)=>{
+            res.status(500).json({
+                error: err.message
+            })
+        });
 }
 
 // GET /v1/server/:serverId
 export function getServer(req, res){
-    res.status(501).json(req.server);
+    res.json(req.server);
 }
 
 export function updateServer(req, res){
     res.status(501).send('update server')
 }
 
-export function deleteServer(req, res){
-    res.status(501).send('delete server')
+// GET /v1/server/:serverId
+export function deleteServer(req, res, next){
+    req.server.delete()
+    .then((result)=>{
+        //res.json(result);
+        res.status(204).send();
+    })
+    .catch(next);
 }

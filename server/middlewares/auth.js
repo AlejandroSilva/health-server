@@ -1,16 +1,3 @@
-import * as db from '../../db/db.js';
-
-export function dbConnection(req, res, next){
-    db.connect()
-        .then((conn)=>{
-            req.conn = conn;
-            next();
-        })
-        .catch((err)=>{
-            res.status(500).send(err);
-        })
-}
-
 export function isAuthenticated(req, res, next){
     // ToDo: pendiente
     // si tiene el token valido
