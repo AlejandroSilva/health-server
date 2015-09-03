@@ -4,10 +4,10 @@
   "description": "nodo heath para el envio de informacion del sistema",
   "main": "index.js",
   "scripts": {
-    "server-prod": "## Servidor en produccion ahun no implementado",
-    "server-dev": "babel-node server.js --source-maps --watch",
-    "server-test": "NODE_ENV=testing babel-node server.js --source-maps --watch",
-    "start": "npm run server-dev",
+    "start-prod": "NODE_ENV=production pm2 start server.js --interpreter babel-node --name health && pm2 logs health",
+    "stop-prod": "pm2 stop health",
+    "babel-dev": "babel-node server.js --source-maps --watch",
+    "babel-test": "NODE_ENV=testing babel-node server.js --source-maps --watch",
     "dev": "npm run server-dev",
     "mocha-v1-info": "NODE_ENV=testing ./node_modules/.bin/mocha --compilers js:babel/register --timeout 5000 test/v1.info.js ",
     "mocha-v1-server": "NODE_ENV=testing ./node_modules/.bin/mocha --compilers js:babel/register --timeout 8000 test/v1.server.js ",
@@ -21,7 +21,8 @@
     "helmet": "^0.10.0",
     "lodash": "^3.10.1",
     "morgan": "^1.6.1",
-    "tcp-ping": "^0.1.1"
+    "tcp-ping": "^0.1.1",
+    "thinky": "^2.1.6"
   },
   "devDependencies": {
     "chai": "^3.2.0",

@@ -4,11 +4,10 @@ function rethinkErrors(err, req, res, next){
 }
 
 function thinkyErrors(err, req, res, next) {
-    console.log("thinky error");
     if( /The query did not find a document/.test(err.message) ){
         res.status(404).json({
             message: 'Document not found',
-            original: err
+            original: err.message
         })
     }else{
         next(err)
@@ -16,9 +15,10 @@ function thinkyErrors(err, req, res, next) {
 }
 
 function unhandledError(err, req, res, next){
+    //throw err;
     res.status(500).json({
         message: 'Unhandled error',
-        original: err
+        original: err.message
     });
 };
 

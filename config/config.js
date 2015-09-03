@@ -27,4 +27,5 @@ if(enviroment==='production') {
     };
 }
 
+console.log(`Configuración '${enviroment}' cargada.`);
 export default config;

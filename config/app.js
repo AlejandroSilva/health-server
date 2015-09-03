@@ -1,9 +1,9 @@
 export let development = {
-    port: 8181
+    port: 8888
 };
 
 export let production = {
-    port: 80
+    port: 8000
 };
 
 export let test = {

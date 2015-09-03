@@ -2,7 +2,7 @@ import express from 'express';
 import * as controller from './controller.js';
 
 let router = express.Router();
-
+router.get('/', controller.allInfo);
 router.get('/cpu', controller.cpuInfo);
 router.get('/ram', controller.ramInfo);
 router.get('/disc', controller.spaceInfo);
