@@ -30,7 +30,7 @@ export function createServer(req, res){
         });
 }
 
-// GET /v1/server/:serverId
+// GET /v1/server/:serverHost
 export function getServer(req, res){
     res.json(req.server);
 }
@@ -39,7 +39,7 @@ export function updateServer(req, res){
     res.status(501).send('update server')
 }
 
-// GET /v1/server/:serverId
+// GET /v1/server/:serverHost
 export function deleteServer(req, res, next){
     req.server.delete()
     .then((result)=>{

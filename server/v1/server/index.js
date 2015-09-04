@@ -8,9 +8,9 @@ let router = express.Router();
 /*
  * Params
  */
-router.param('serverId', function(req, res, next, serverId){
+router.param('serverHost', function(req, res, next, serverHost){
     // si existe el server que busca, lo agrega a la respuesta
-    Server.get(serverId).run()
+    Server.get(serverHost).run()
     .then((server)=>{
         req.server = server;
         next();
@@ -26,7 +26,7 @@ router.route('/')
     .get(controller.getAllServers)
     .post(auth.isAuthenticated, controller.createServer);
 
-router.route('/:serverId')
+router.route('/:serverHost')
     .get(controller.getServer)
     .put(auth.isAuthenticated, controller.updateServer)
     .delete(auth.isAuthenticated, controller.deleteServer);

@@ -6,9 +6,8 @@
   "scripts": {
     "start-prod": "NODE_ENV=production pm2 start server.js --interpreter babel-node --name health && pm2 logs health",
     "stop-prod": "pm2 stop health",
-    "babel-dev": "babel-node server.js --source-maps --watch",
+    "babel-dev": "babel-node server.js --source-maps --loglevel error",
     "babel-test": "NODE_ENV=testing babel-node server.js --source-maps --watch",
-    "dev": "npm run server-dev",
     "mocha-v1-info": "NODE_ENV=testing ./node_modules/.bin/mocha --compilers js:babel/register --timeout 5000 test/v1.info.js ",
     "mocha-v1-server": "NODE_ENV=testing ./node_modules/.bin/mocha --compilers js:babel/register --timeout 8000 test/v1.server.js ",
     "test": "npm run mocha-v1-server"
@@ -21,8 +20,11 @@
     "helmet": "^0.10.0",
     "lodash": "^3.10.1",
     "morgan": "^1.6.1",
+    "node-schedule": "^0.2.9",
+    "request": "^2.61.0",
     "tcp-ping": "^0.1.1",
-    "thinky": "^2.1.6"
+    "thinky": "^2.1.6",
+    "winston": "^1.0.1"
   },
   "devDependencies": {
     "chai": "^3.2.0",
