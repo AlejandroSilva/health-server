@@ -1,14 +1,18 @@
 import Thinky from 'thinky';
-import config from '../config/config.js';
+import config from '../config/index.js';
 let thinky = Thinky(config.rethinkdb);
 let type = thinky.type;
-
+let r = thinky.r;
 // https://thinky.io/documentation/schemas/
 
 let Server = thinky.createModel('Server', {
     id: type.string(),
     name: type.string().required(),
     project: type.string().required(),
+    currentData: type.any().required(), // puede ser un objeto o un arreglo de objetos
+    updatedAt: type.date().default(r.now()),
+    createdAt: type.date().default(r.now()),
+    status: type.array().default([]),
     host: type.string().required(),
     port: type.string().required()
 },{
@@ -18,5 +22,10 @@ let Server = thinky.createModel('Server', {
     validator: function(){}
 });
 Server.ensureIndex('id');
+Server.pre('save', function(next){
+    // al guardar, actualizar la fecha
+    this.updatedAt = r.now();
+    next()
+});
 
 export default Server;

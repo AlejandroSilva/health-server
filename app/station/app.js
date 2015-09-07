@@ -20,7 +20,7 @@ app.use(morgan('combined'));
  * Routes
  */
 app.get('/', function (req, res) {
-    res.send('hello world');
+    res.send('hello, this is a health station');
 });
 
 import v1 from './v1';
@@ -29,7 +29,7 @@ app.use('/v1/', v1);
 /*
  * Middlewares
  */
-import errorsHandler  from './middlewares/errorsHandler.js';
+import errorsHandler  from './../middlewares/errorsHandler.js';
 app.use(errorsHandler);
 
 export default app;

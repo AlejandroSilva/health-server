@@ -1,5 +1,5 @@
 import r from 'rethinkdb';
-import config from '../config/config.js';
+import config from '../config/index.js';
 
 export function connect(){
     return new Promise( (resolve, reject)=>{

@@ -1,5 +1,5 @@
 import Thinky from 'thinky';
-import config from '../config/config.js';
+import config from '../config/index.js';
 import Server from './Server.js';
 let thinky = Thinky(config.rethinkdb);
 let type = thinky.type;

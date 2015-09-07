@@ -1,7 +1,7 @@
 'use strict';
-import Sar from '../../../lib/SAR.js'
-import Ping from '../../../lib/Ping.js'
-import config from '../../../config/config.js';
+import Sar from '../../../../lib/SAR.js'
+import Ping from '../../../../lib/Ping.js'
+import config from '../../../../config/index.js';
 
 let sar  = new Sar(config.lib.sar.interval, config.lib.sar.count);
 let ping = new Ping(config.lib.ping);

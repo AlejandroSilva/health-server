@@ -3,7 +3,7 @@ import request from 'supertest';
 import chai from 'chai';
 let expect = chai.expect;
 
-import app from '../server/app.js';
+import app from '../app/server/app.js';
 
 describe('API v1', function(){
 

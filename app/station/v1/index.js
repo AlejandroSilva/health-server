@@ -7,7 +7,4 @@ let router = express.Router();
 import info from './info'
 router.use('/info', info);
 
-import server from './server'
-router.use('/server', server);
-
 export default router;
