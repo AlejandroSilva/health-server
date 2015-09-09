@@ -6,7 +6,6 @@
   "scripts": {
     "start-station-prod": "NODE_ENV=production pm2 start health-station.js -f --interpreter babel-node --name station && pm2 logs health",
     "stop-station-prod": "pm2 stop station",
-
     "babel-dev": "babel-node health-server.js --source-maps --loglevel error",
     "babel-test": "NODE_ENV=testing babel-node health-server.js --source-maps --watch",
     "mocha-v1-info": "NODE_ENV=testing ./node_modules/.bin/mocha --compilers js:babel/register --timeout 5000 test/v1.info.js ",
@@ -22,14 +21,24 @@
     "lodash": "^3.10.1",
     "morgan": "^1.6.1",
     "node-schedule": "^0.2.9",
+    "react": "^0.13.3",
+    "react-redux": "^2.1.1",
+    "react-router": "^0.13.3",
+    "redux": "^2.0.0",
     "request": "^2.61.0",
     "tcp-ping": "^0.1.1",
     "thinky": "^2.1.6",
     "winston": "^1.0.1"
   },
   "devDependencies": {
+    "babel-core": "^5.8.23",
+    "babel-loader": "^5.3.2",
     "chai": "^3.2.0",
     "mocha": "^2.3.0",
-    "supertest": "^1.1.0"
+    "react-hot-loader": "^1.3.0",
+    "redux-devtools": "^2.1.0",
+    "supertest": "^1.1.0",
+    "webpack": "^1.12.1",
+    "webpack-dev-server": "^1.10.1"
   }
 }
