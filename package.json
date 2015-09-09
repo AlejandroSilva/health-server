@@ -26,6 +26,7 @@
     "react-router": "^0.13.3",
     "redux": "^2.0.0",
     "request": "^2.61.0",
+    "rethinkdb": "^2.1.1",
     "tcp-ping": "^0.1.1",
     "thinky": "^2.1.6",
     "winston": "^1.0.1"
