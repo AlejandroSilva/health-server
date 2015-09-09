@@ -22,6 +22,12 @@ In Ubuntu, can be installed as:
 # apt-get install sysstat
 # apt-get install dcmtk
 ```
+In OSX, can be installed as:
+DCMTK 
+    1.- Install Homebrew
+        1.1 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        1.2 brew install dcmtk
+
 
 ## Dependencies
 The project has been developed in ES6, so, in order to make it work, we use [babel](http://babeljs.io/) as javascript compiler/transpiler, or a version of node who support ES6. (node v4.0+)
