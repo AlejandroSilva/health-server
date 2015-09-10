@@ -1,15 +1,13 @@
 import React from 'react'
-import {RouteHandler, Link} from 'react-router'
+import {RouteHandler} from 'react-router'
+import ServerList from './ServerList.jsx'
 
 export default class AppView extends React.Component{
     render(){
         return (
             <div id="app-view">
-                <h1>Todos List asd as</h1>
-                <ul>
-                    <li><Link to="home">home</Link></li>
-                    <li><Link to="about">about</Link></li>
-                </ul>
+                <h1>Servers stats</h1>
+                <ServerList />
                 <hr />
                 {this.props.children}
                 <RouteHandler/>

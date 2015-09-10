@@ -38,7 +38,7 @@ app.get('/*', function (req, res) {
                     <title>Isomorphic Redux Demo</title>
                 </head>
                 <body>
-                    <div id="react-view">
+                    <div id="appRoot">
                         ${componentHTML}
                     </div>
                     <script type="application/javascript" src="/bundle.js"></script>
