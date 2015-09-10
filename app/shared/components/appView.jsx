@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react'//export default React.createClass({
+import {RouteHandler} from 'react-router'
 
 export default class AppView extends React.Component{
     render(){
@@ -7,6 +8,7 @@ export default class AppView extends React.Component{
                 <h1>Todos</h1>
                 <hr />
                 {this.props.children}
+                <RouteHandler/>
             </div>
         );
     }
