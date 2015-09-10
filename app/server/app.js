@@ -15,6 +15,8 @@ app.use(bodyParser.urlencoded({
 // parse application/json
 app.use(bodyParser.json());
 app.use(morgan('combined'));
+// serving static files
+app.use(express.static('public'));
 
 /**
  * Routes
@@ -39,10 +41,11 @@ app.get('/*', function (req, res) {
                     <div id="react-view">
                         ${componentHTML}
                     </div>
-                <!--<script type="application/javascript" src="/bundle.js"></script>-->
+                    <script type="application/javascript" src="/bundle.js"></script>
                 </body>
             </html>
         `
+        //<script type="application/javascript" src="http://localhost:8001/public/bundle.js"></script>
         res.send(html);
     })
 });

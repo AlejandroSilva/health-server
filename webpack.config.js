@@ -3,12 +3,12 @@ var webpack = require('webpack');
 
 module.exports = {
     entry:  [
-        'webpack-dev-server/client?http://localhost:8080/',
+        //'webpack-dev-server/client?http://localhost:8888/',
         'webpack/hot/only-dev-server',
-        './client'
+        './app/client/index.jsx'
     ],
     output: {
-        path:     path.join(__dirname, 'dist'),
+        path:     path.join(__dirname, 'public'),
         filename: 'bundle.js'
     },
     resolve: {
@@ -17,11 +17,7 @@ module.exports = {
     },
     module: {
         loaders: [
-            {
-                test:    /\.jsx?$/,
-                exclude: /node_modules/,
-                loaders: ['react-hot', 'babel']
-            }
+            {test: /\.jsx?$/, exclude: /node_modules/, loaders: ['react-hot', 'babel']}
         ]
     },
     plugins: [
