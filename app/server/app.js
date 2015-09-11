@@ -6,6 +6,11 @@ import morgan from 'morgan';
 let app = express();
 
 /**
+ * Options
+ */
+app.set('view cache', false);
+
+/**
  * Middlewares
  */
 // parse application/x-www-form-urlencoded
@@ -41,6 +46,7 @@ app.get('/*', function (req, res) {
                     <div id="appRoot">
                         ${componentHTML}
                     </div>
+                    <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.1.6/zepto.min.js"></script>
                     <script type="application/javascript" src="/bundle.js"></script>
                 </body>
             </html>

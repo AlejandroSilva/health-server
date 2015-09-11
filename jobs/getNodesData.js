@@ -4,7 +4,7 @@ import Data from '../db/Data.js';
 
 function fetchData(server){
     return new Promise((resolve, reject)=>{
-        request(`http://${server.host}:${server.port}/v1/info`, {timeout: 5000}, function (err, res, body) {
+        request(`http://${server.host}:${server.port}/v1/info`, {timeout: 15000}, function (err, res, body) {
             if(err){
                 // request no pudo hacer una peticion al servidor
                 reject(`Error al obtener datos de '${server.name}' (${server.host}:${server.port}): ${err.code}`);
