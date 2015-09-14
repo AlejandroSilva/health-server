@@ -40,7 +40,7 @@ app.get('/*', function (req, res) {
             <html>
                 <head>
                     <meta charset="utf-8">
-                    <title>Isomorphic Redux Demo</title>
+                    <title>Health Monitor - Toth</title>
                 </head>
                 <body>
                     <div id="appRoot">
@@ -52,6 +52,7 @@ app.get('/*', function (req, res) {
             </html>
         `
         //<script type="application/javascript" src="http://localhost:8001/public/bundle.js"></script>
+        res.setHeader('Cache-Control', 'no-cache');
         res.send(html);
     })
 });
