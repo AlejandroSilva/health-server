@@ -11,9 +11,8 @@ export default class ServerList extends React.Component{
     componentDidMount(){
         this.fetchList();
     }
-    componentWillReceiveProps(){
-        this.fetchList();
-    }
+    //componentWillReceiveProps(){}
+
     fetchList(){
         $.ajax({
             type: 'GET',
@@ -31,10 +30,10 @@ export default class ServerList extends React.Component{
     render(){
         return(
             <ul>
-                <li><Link to="servers">All</Link></li>
+                <li><Link to="servers">Todos</Link></li>
                 {this.state.servers.map((server)=>{
                     return(
-                        <li><Link to="serverInfo" params={{serverId: server.id }}>{server.name}</Link></li>
+                        <li key={server.id}><Link to="serverInfo" params={{serverId: server.id }}>{server.name}</Link></li>
                     )
                 })}
             </ul>

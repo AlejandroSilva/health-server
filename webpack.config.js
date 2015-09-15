@@ -4,7 +4,7 @@ var webpack = require('webpack');
 module.exports = {
     entry:  [
         // WebpackDevServer host and port
-        'webpack-dev-server/client?http://0.0.0.0:3000/',
+        'webpack-dev-server/client?http://0.0.0.0:3001/',
         // "only" prevents reload on syntax errors
         'webpack/hot/only-dev-server',
         // Appʼs entry point
@@ -12,7 +12,9 @@ module.exports = {
     ],
     output: {
         path:     path.join(__dirname, 'public'),
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        publicPath: 'http://localhost:3001/'
+        //publicPath: 'http://google.com:84745/public'
     },
     //resolve: {
     //    modulesDirectories: ['node_modules', 'shared'],
@@ -27,7 +29,7 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin()
     ],
-    //devtool: 'inline-source-map',
+    devtool: 'inline-source-map',
     //devServer: {
     //    hot: true,
     //    proxy: {

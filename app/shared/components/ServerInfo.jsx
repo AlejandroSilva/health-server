@@ -13,23 +13,26 @@ import Ram from './modules/Ram.jsx'
 
 
 export default class ServerInfo extends React.Component{
-    constructor(){
+    constructor() {
         super();
         this.state = {}
     }
     componentDidMount(){
-        this.fetchData();
+        this.fetchData(this.props.params.serverId);
     }
-    componentWillReceiveProps(){
-        this.fetchData();
+    componentWillReceiveProps(nextProps){
+        // quitar el listener anterior
+        socket.removeListener(`updated:${this.props.params.serverId}`)
+        this.fetchData(nextProps.params.serverId)
     }
     componentWillUnmount(){
-        socket.removeAllListeners();
+        socket.removeListener(`updated:${this.props.params.serverId}`)
     }
-    fetchData(){
+
+    fetchData(serverId){
         $.ajax({
             type: 'GET',
-            url: `/v1/server/${this.props.params.serverId}`,
+            url: `/v1/server/${serverId}`,
             success: (server)=>{
                 this.setState({
                     server: server
@@ -47,32 +50,54 @@ export default class ServerInfo extends React.Component{
             }
         })
     }
+
     render(){
+
+        let content = <h1>nada</h1>
+
         if(!this.state.server){
-            return <h1>loading</h1>
+            // si el ajax no se ha resuelto, no hacer nada
+            content = <h3>Cargando</h3>
+
+        }else if(!this.state.server.currentData){
+            // revisar si se han recibido datos
+            content = <h3>Sin datos</h3>
+
+        }else{
+            content = (
+                <div>
+                    {Object.getOwnPropertyNames(this.state.server.currentData).map((module)=> {
+                        {
+                            if (module === 'cpu') {
+                                return <Cpu key="cpu" data={this.state.server.currentData[module]}/>
+                            } else if (module === 'discIO') {
+                                return <DiscIO key="discIO" data={this.state.server.currentData[module]}/>
+                            } else if (module === 'discMounted') {
+                                return <DiscMounted key="discMounted" data={this.state.server.currentData[module]}/>
+                            } else if (module === 'netIO') {
+                                return <NetIO key="netIO" data={this.state.server.currentData[module]}/>
+                            } else if (module === 'pingInternational') {
+                                return <Ping key="pingInternational" data={this.state.server.currentData[module]}/>
+                            } else if (module === 'pingNational') {
+                                return <Ping key="pingNational" data={this.state.server.currentData[module]}/>
+                            } else if (module === 'ram') {
+                                return <Ram key="ram" data={this.state.server.currentData[module]}/>
+                            } else {
+                                return <h3>{module}</h3>
+                            }
+                        }
+                    })}
+                </div>
+            )
         }
+
+
         return(
             <div>
-                <h1>this is the information of { this.state.server.name }</h1>
-                {Object.getOwnPropertyNames(this.state.server.currentData).map((module)=>{
-                    {if(module==='cpu'){
-                        return <Cpu data={this.state.server.currentData[module]} />
-                    }else if(module==='discIO'){
-                        return <DiscIO data={this.state.server.currentData[module]} />
-                    }else if(module==='discMounted'){
-                        return <DiscMounted data={this.state.server.currentData[module]} />
-                    }else if(module==='netIO'){
-                        return <NetIO data={this.state.server.currentData[module]} />
-                    }else if(module==='pingInternational'){
-                        return <Ping data={this.state.server.currentData[module]} />
-                    }else if(module==='pingNational'){
-                        return <Ping data={this.state.server.currentData[module]} />
-                    }else if(module==='ram'){
-                        return <Ram data={this.state.server.currentData[module]} />
-                    }else{
-                        return <h3>{module}</h3>
-                    }}
-                })}
+                <h1>Datos del servidor   asd{ this.state.server? this.state.server.name: this.props.params.serverId }</h1>
+                <button>Modificar</button>
+                <button>Eliminar</button>
+                {content}
             </div>
         )
     }

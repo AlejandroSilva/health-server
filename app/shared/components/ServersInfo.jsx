@@ -36,7 +36,7 @@ export default class ServersInfo extends React.Component{
                 { this.state.servers.map( (server)=>{
                     return(
                         <div>
-                            <ServerInfo params={{serverId: server.id}} />
+                            <ServerInfo key={server.id} params={{serverId: server.id}} />
                         </div>
                     )
                 }) }
