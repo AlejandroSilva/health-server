@@ -4,7 +4,7 @@
   "description": "nodo heath para el envio de informacion del sistema",
   "main": "index.js",
   "scripts": {
-    "start-station-prod": "NODE_ENV=production pm2 start health-station.js -f --interpreter babel-node --name station && pm2 logs health",
+    "start-station-prod": "NODE_ENV=production pm2 start health-station.js -f --interpreter babel-node --name station && pm2 logs station",
     "stop-station-prod": "pm2 stop station",
     "babel-dev": "babel-node health-server.js --source-maps --loglevel error",
     "babel-test": "NODE_ENV=testing babel-node health-server.js --source-maps --watch",
