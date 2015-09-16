@@ -36,10 +36,10 @@ export function getServer(req, res){
 }
 
 export function updateServer(req, res){
-    res.status(501).send('update server')
+    res.status(501).json(req.server)
 }
 
-// GET /v1/server/:serverHost
+// DELETE /v1/server/:serverHost
 export function deleteServer(req, res, next){
     req.server.delete()
     .then((result)=>{

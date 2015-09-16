@@ -1,5 +1,6 @@
 import React from 'react'
-import {Link} from 'react-router'
+import {Link,  History} from 'react-router'
+import * as Api from './../../client/apiV1.js'
 import io from 'socket.io-client'
 let socket = io.connect('http://localhost:8888')
 
@@ -13,9 +14,13 @@ import Ram from './modules/Ram.jsx'
 
 
 export default class ServerInfo extends React.Component{
-    constructor() {
-        super();
-        this.state = {}
+    constructor(props) {
+        super(props);
+        this.state = {
+            server: {},
+            error: ''
+        }
+        console.log(this.props.history)
     }
     componentDidMount(){
         this.fetchData(this.props.params.serverId);
@@ -30,10 +35,10 @@ export default class ServerInfo extends React.Component{
     }
 
     fetchData(serverId){
-        $.ajax({
-            type: 'GET',
-            url: `/v1/server/${serverId}`,
-            success: (server)=>{
+        this.setState({error: ''})
+
+        Api.server.get(serverId)
+            .then((server)=>{
                 this.setState({
                     server: server
                 })
@@ -44,26 +49,25 @@ export default class ServerInfo extends React.Component{
                         server: server
                     })
                 })
-            },
-            error: (xhr, type, err)=>{
-                console.error("ajax error")
-            }
-        })
+            })
+            .catch((err)=> this.setState({error: err}) )
     }
 
     render(){
-
         let content = <h1>nada</h1>
 
-        if(!this.state.server){
+        if(this.state.error){
+            content = <h3>{this.state.error}</h3>
+
+        } else if(!this.state.server){
             // si el ajax no se ha resuelto, no hacer nada
             content = <h3>Cargando</h3>
 
-        }else if(!this.state.server.currentData){
+        } else if(!this.state.server.currentData) {
             // revisar si se han recibido datos
             content = <h3>Sin datos</h3>
 
-        }else{
+        } else{
             content = (
                 <div>
                     {Object.getOwnPropertyNames(this.state.server.currentData).map((module)=> {
@@ -91,14 +95,21 @@ export default class ServerInfo extends React.Component{
             )
         }
 
-
         return(
             <div>
                 <h1>Datos del servidor   asd{ this.state.server? this.state.server.name: this.props.params.serverId }</h1>
                 <button>Modificar</button>
-                <button>Eliminar</button>
+                <button onClick={this.deleteServer.bind(this)}>Eliminar</button>
                 {content}
             </div>
         )
+    }
+    deleteServer(e){
+        e.preventDefault()
+        Api.server.delete(this.props.params.serverId)
+            .then(()=>{
+                //this.context.router.transitionTo('servers')
+            })
+            .catch((err)=> this.setState({error: err}) )
     }
 }

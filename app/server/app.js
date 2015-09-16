@@ -46,7 +46,6 @@ app.get('/*', function (req, res) {
                     <div id="appRoot">
                         ${componentHTML}
                     </div>
-                    <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.1.6/zepto.min.js"></script>
                     <script type="application/javascript" src="/bundle.js"></script>
                 </body>
             </html>
@@ -60,7 +59,7 @@ app.get('/*', function (req, res) {
 /*
  * Middlewares
  */
-//import errorsHandler  from '../middlewares/errorsHandler.js';
-//app.use(errorsHandler);
+import errorsHandler  from '../middlewares/errorsHandler.js';
+app.use(errorsHandler);
 
 export default app;
