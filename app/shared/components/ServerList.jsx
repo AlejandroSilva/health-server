@@ -21,22 +21,24 @@ export default class ServerList extends React.Component{
             .catch((err)=> this.setState({error: err}) )
     }
     render(){
-        if(this.state.error){
-            return <h3>Error: {this.state.error}</h3>
-
-        }else {
-            return (
+        return (
+            <div>
+                <h2>Servidores</h2>
                 <ul>
                     <li><Link to="servers">Todos</Link></li>
                     {this.state.servers.map((server)=> {
                         return (
-                            <li key={server.id}><Link to="serverInfo"
-                                                      params={{serverId: server.id }}>{server.name}</Link></li>
+                            <li key={server.id}>
+                                <Link to="serverInfo" params={{serverId: server.id }}>{server.name}</Link>
+                            </li>
                         )
                     })}
                 </ul>
-            )
-        }
+                { this.state.error? <h3>Error this.state.error</h3> : null }
+                <Link to="addServer">Add Server</Link>
+            </div>
+        )
+
     }
 }
 
