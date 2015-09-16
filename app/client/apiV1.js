@@ -2,6 +2,21 @@ import request from 'superagent'
 
 
 export let server = {
+    getAll: ()=>{
+        return new Promise((resolve, reject)=>{
+            request
+                .get(`/v1/server`)
+                .set('Content-Type', 'application/json')
+                .set('token', '12345')
+                .end((err, res)=>{
+                    if(err){
+                        reject(err.message)
+                    }else{
+                        resolve(res.body)
+                    }
+                })
+        })
+    },
     get: (serverId)=>{
         return new Promise((resolve, reject)=>{
             request
@@ -12,7 +27,7 @@ export let server = {
                     if(err){
                         reject(err.message)
                     }else{
-                        resolve(res)
+                        resolve(res.body)
                     }
                 })
         })
@@ -65,5 +80,4 @@ export let server = {
                 })
         })
     },
-
 }

@@ -50,7 +50,6 @@ app.get('/*', function (req, res) {
                 </body>
             </html>
         `
-        //<script type="application/javascript" src="http://localhost:8001/public/bundle.js"></script>
         res.setHeader('Cache-Control', 'no-cache');
         res.send(html);
     })

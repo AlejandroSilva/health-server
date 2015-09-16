@@ -1,43 +1,42 @@
 import React from 'react'
 import {Link} from 'react-router'
+import * as Api from './../../client/apiV1.js'
 
 export default class ServerList extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
-            servers: []
+            servers: [],
+            error: ''
         }
     }
     componentDidMount(){
-        this.fetchList();
+        this._getServers();
     }
     //componentWillReceiveProps(){}
 
-    fetchList(){
-        $.ajax({
-            type: 'GET',
-            url: '/v1/server',
-            success: (servers)=>{
-                this.setState({
-                    servers: servers
-                })
-            },
-            error: (xhr, type, err)=>{
-                console.error("ajax error")
-            }
-        })
+    _getServers(){
+        Api.server.getAll()
+            .then((servers)=> this.setState({servers: servers} ) )
+            .catch((err)=> this.setState({error: err}) )
     }
     render(){
-        return(
-            <ul>
-                <li><Link to="servers">Todos</Link></li>
-                {this.state.servers.map((server)=>{
-                    return(
-                        <li key={server.id}><Link to="serverInfo" params={{serverId: server.id }}>{server.name}</Link></li>
-                    )
-                })}
-            </ul>
-        )
+        if(this.state.error){
+            return <h3>Error: {this.state.error}</h3>
+
+        }else {
+            return (
+                <ul>
+                    <li><Link to="servers">Todos</Link></li>
+                    {this.state.servers.map((server)=> {
+                        return (
+                            <li key={server.id}><Link to="serverInfo"
+                                                      params={{serverId: server.id }}>{server.name}</Link></li>
+                        )
+                    })}
+                </ul>
+            )
+        }
     }
 }
 

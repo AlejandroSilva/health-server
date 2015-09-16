@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link,  History} from 'react-router'
+import {Navigation} from 'react-router'
 import * as Api from './../../client/apiV1.js'
 import io from 'socket.io-client'
 let socket = io.connect('http://localhost:8888')
@@ -13,28 +13,29 @@ import Ping from './modules/Ping.jsx'
 import Ram from './modules/Ram.jsx'
 
 
-export default class ServerInfo extends React.Component{
-    constructor(props) {
-        super(props);
-        this.state = {
+//export default class ServerInfo extends React.Component{
+export default React.createClass({
+    mixins: [
+        Navigation
+    ],
+    getInitialState: function() {
+        return {
             server: {},
             error: ''
         }
-        console.log(this.props.history)
-    }
+    },
     componentDidMount(){
-        this.fetchData(this.props.params.serverId);
-    }
+        this._getServer(this.props.params.serverId);
+    },
     componentWillReceiveProps(nextProps){
         // quitar el listener anterior
         socket.removeListener(`updated:${this.props.params.serverId}`)
-        this.fetchData(nextProps.params.serverId)
-    }
+        this._getServer(nextProps.params.serverId)
+    },
     componentWillUnmount(){
         socket.removeListener(`updated:${this.props.params.serverId}`)
-    }
-
-    fetchData(serverId){
+    },
+    _getServer(serverId){
         this.setState({error: ''})
 
         Api.server.get(serverId)
@@ -51,7 +52,7 @@ export default class ServerInfo extends React.Component{
                 })
             })
             .catch((err)=> this.setState({error: err}) )
-    }
+    },
 
     render(){
         let content = <h1>nada</h1>
@@ -97,19 +98,21 @@ export default class ServerInfo extends React.Component{
 
         return(
             <div>
-                <h1>Datos del servidor   asd{ this.state.server? this.state.server.name: this.props.params.serverId }</h1>
+                <h1>Datos del servidor { this.state.server? this.state.server.name: this.props.params.serverId }</h1>
                 <button>Modificar</button>
-                <button onClick={this.deleteServer.bind(this)}>Eliminar</button>
+                <button onClick={this.deleteServer}>Eliminar</button>
                 {content}
             </div>
         )
-    }
+    },
     deleteServer(e){
         e.preventDefault()
         Api.server.delete(this.props.params.serverId)
             .then(()=>{
-                //this.context.router.transitionTo('servers')
+
+                // Navegar a otro componente: https://github.com/rackt/react-router/blob/master/docs/advanced/NavigatingOutsideOfComponents.md
+                this.transitionTo('/servers', {})
             })
             .catch((err)=> this.setState({error: err}) )
     }
-}
+})

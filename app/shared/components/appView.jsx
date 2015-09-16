@@ -3,8 +3,8 @@ import {Link, RouteHandler} from 'react-router'
 import ServerList from './ServerList.jsx'
 
 export default class AppView extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
     }
     render(){
         return (

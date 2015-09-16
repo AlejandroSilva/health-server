@@ -2,8 +2,8 @@ import React from 'react'
 import * as Api from './../../client/apiV1.js'
 
 export default class AddServer extends React.Component{
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
             error: '',
             server: {
@@ -22,12 +22,10 @@ export default class AddServer extends React.Component{
         this.setState({error: ''})
 
         if(this.state.server.id){
-            console.log('update2')
             Api.server.update(this.state.server)
                 .then((server)=> this.setState({server: server}) )
                 .catch((err)=> this.setState({error: err}) )
         }else{
-            console.log('create2')
             Api.server.create(this.state.server)
                 .then((server)=> this.setState({server: server}) )
                 .catch((err)=> this.setState({error: err}) )
@@ -40,7 +38,6 @@ export default class AddServer extends React.Component{
             error: '',
             server: server
         })
-        console.log(this.state.server)
     }
     render(){
         let errorMessage = this.state.error? <p>{this.state.error}</p>: null;

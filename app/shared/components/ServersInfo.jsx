@@ -1,46 +1,37 @@
 import React from 'react'
 import {Link} from 'react-router'
 import ServerInfo from './ServerInfo.jsx'
-
+import * as Api from './../../client/apiV1.js'
 
 export default class ServersInfo extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
-            servers: []
+            servers: [],
+            error: ''
         }
     }
     componentDidMount(){
-        this.fetchList();
+        this._getServers();
     }
     componentWillReceiveProps(){
-        this.fetchList();
+        this._getServers();
     }
-    fetchList(){
-        $.ajax({
-            type: 'GET',
-            url: '/v1/server',
-            success: (servers)=>{
-                this.setState({
-                    servers: servers
-                })
-            },
-            error: (xhr, type, err)=>{
-                console.error("ajax error")
-            }
-        })
+    _getServers(){
+        Api.server.getAll()
+            .then((servers)=> this.setState({servers: servers} ) )
+            .catch((err)=> this.setState({error: err}) )
     }
     render(){
-        return(
-            <div>
-                { this.state.servers.map( (server)=>{
-                    return(
-                        <div>
-                            <ServerInfo key={server.id} params={{serverId: server.id}} />
-                        </div>
-                    )
-                }) }
-            </div>
-        )
+        let content = <p></p>
+        if(this.state.error){
+            content = <h3>{this.state.error}</h3>
+
+        }else{
+            content = this.state.servers.map( (server)=> {
+                return <ServerInfo key={server.id} params={{serverId: server.id}}/>
+            })
+        }
+        return <div>{content}</div>
     }
 }
