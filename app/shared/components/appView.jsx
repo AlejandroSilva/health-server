@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import {Link, RouteHandler} from 'react-router'
 import ServerList from './ServerList.jsx'
+import {connect} from 'react-redux'
 
+@connect((state)=> ({ todos: state.todos }))
 export default class AppView extends React.Component{
-    constructor(props){
-        super(props);
+    static propTypes = {
+        children: PropTypes.object
     }
+
+    componentDidMount = ()=>{
+        this.props.history.pushState(null, '/');
+    }
+
     render(){
         return (
             <div id="app-view">
@@ -17,3 +24,22 @@ export default class AppView extends React.Component{
         );
     }
 }
+//connect(
+//    //mapStateToProps,
+//    (state)=>{
+//        return {
+//            value: state.counter
+//        }
+//    },
+//    //mapDispatchToProps
+//    (dispatch)=>{
+//        return {
+//            onIncrement: ()=>{
+//                console.log("EVENTO_INC")
+//                dispatch({
+//                    type: 'EVENTO_INC'
+//                })
+//            }
+//        }
+//    }
+//)(AppView)

@@ -8,7 +8,7 @@ module.exports = {
         // "only" prevents reload on syntax errors
         'webpack/hot/only-dev-server',
         // Appʼs entry point
-        './app/client/index.jsx'
+        './app/boot-client.jsx'
     ],
     output: {
         path:     path.join(__dirname, 'public'),
@@ -22,7 +22,9 @@ module.exports = {
     //},
     module: {
         loaders: [
-            {test: /\.jsx?$/, exclude: /node_modules/, loaders: ['react-hot', 'babel']}
+            //{test: /\.jsx?$/, exclude: /node_modules/, loaders: ['react-hot','babel'] }
+            {test: /\.jsx?$/, exclude: /node_modules/, loader: 'react-hot' },
+            {test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel', query: {stage: 0} }
         ]
     },
     plugins: [
