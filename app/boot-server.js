@@ -33,7 +33,7 @@ app.use('/v1/', v1);
 import React from 'react'
 //import ReactDOM from 'react-dom/server.js'
 import { applyMiddleware, createStore } from 'redux'
-//import combinedReducers from './shared/reducers/index.js'
+//import combinedReducers from './shared/reducers/combinedReducers.js'
 import { Provider } from 'react-redux'
 //import fetchComponentData from './shared/lib/fetchComponentData.js'
 
@@ -51,7 +51,8 @@ app.get('/*', function (req, res) {
 
     fetchCounter( (apiResult)=>{
         let store = configureStore({
-            counter: 10
+            counter: 10,
+            servers : [1,23,4,4]
         })
         let componentHTML = React.renderToString(
             <Provider store={store}>

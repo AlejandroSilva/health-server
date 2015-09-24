@@ -17,8 +17,8 @@ import configureStore from './shared/store/configureStore.js';
 import App from './shared/containers/App.js';
 import CounterApp from './shared/components/Counter.js'
 
+// entrega los valores iniciales a la store (store tiene varios reducers asociados)
 const initialState = window.__INITIAL_STATE__ || 666;
-
 const store = configureStore(initialState);
 
 const rootElement = document.getElementById('appRoot');

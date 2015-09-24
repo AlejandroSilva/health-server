@@ -49,7 +49,7 @@ it calls the following command:
 ```
 $ NODE_ENV=production pm2 start health-station.js -f --interpreter babel-node --name station && pm2 logs health",
 ```
-`NODE_ENV=production` use the development configuration files, (see `/config/index.js` for more info)
+`NODE_ENV=production` use the development configuration files, (see `/config/combinedReducers.js` for more info)
 `pm2 start health-station.js` call the entry point script,  `-f` is to force to restart the app if is already running, `--interpreter babel-node` use babel to run the code (for the ES6 compatibility), `--name station` is a name for the pm2 instance, finally `pm2 logs health` is to see the console output of the station. 
 
 To stop the station:
