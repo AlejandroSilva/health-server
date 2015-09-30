@@ -1,7 +1,8 @@
+/*
 import React from 'react'
 import {Link} from 'react-router'
 import ServerInfo from './ServerInfo.jsx'
-import * as Api from './../../client/apiV1.js'
+import * as Api from './../../client/v1.js'
 
 export default class ServersInfo extends React.Component{
     constructor(props){
@@ -35,3 +36,4 @@ export default class ServersInfo extends React.Component{
         return <div>{content}</div>
     }
 }
+*/

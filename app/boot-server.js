@@ -40,46 +40,44 @@ import { Provider } from 'react-redux'
 // Rutas
 //import { RoutingContext, match } from 'react-router'
 //import createLocation from 'history/lib/createLocation.js'
-
 //import routes from './shared/routes.jsx'
-import App from './shared/containers/App.js'
-import CounterApp from './shared/components/Counter.js'
-import { fetchCounter } from './shared/api/counter.js'
-import configureStore from './shared/store/configureStore.js'
+
+//import App from './shared/containers/App.js'
+//import AppRoot from './shared/components/appView.jsx'
+//import CounterApp from './shared/components/Counter.js'
+//import { fetchCounter } from './shared/api/counter.js'
+//import configureStore from './shared/store/configureStore.js'
 
 app.get('/*', function (req, res) {
+    //let location = createLocation(req.url)
 
-    fetchCounter( (apiResult)=>{
-        let store = configureStore({
-            counter: 10,
-            servers : [1,23,4,4]
-        })
-        let componentHTML = React.renderToString(
-            <Provider store={store}>
-                { () => <CounterApp/> }
-            </Provider>
-        )
-        let initialState = store.getState()
-        let html = `
-                <!DOCTYPE html>
-                <html>
-                    <head>
-                        <meta charset="utf-8"/>
-                        <title>Health Monitor - Toth</title>
-                        <script>
-                            window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
-                        </script>
-                    </head>
-                    <body>
-                        <div id="appRoot">
-                            ${componentHTML}
-                        </div>
-                        <script type="application/javascript" src="/bundle.js"></script>
-                    </body>
-                </html>
-            `
-        res.send(html)
-    })
+    //fetchCounter( (apiResult)=>{
+        // Entregar un estado inicial de las Store al usuario
+        //let store = configureStore({
+        //    counter: 10,
+        //    servers: [1, 23, 4, 4]
+        //})
+        //let initialState = store.getState()
+
+        res.send(`
+            <!DOCTYPE html>
+            <html>
+                <head>
+                    <meta charset="utf-8"/>
+                    <title>Health Monitor - Toth</title>
+                    <script>
+                        // window.__INITIAL_STATE__ = ${"JSON.stringify(initialState)"};
+                    </script>
+                </head>
+                <body>
+                    <div id="appRoot">
+                        ${"componentHTML"}
+                    </div>
+                    <script type="application/javascript" src="/bundle.js"></script>
+                </body>
+            </html>
+        `)
+        // }) end fetchCounter
 })
 /*
 app.get('/*', function (req, res) {

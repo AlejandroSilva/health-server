@@ -1,22 +1,32 @@
-import request from 'superagent'
+import axios from 'axios'
 
+// Documentacion: https://github.com/mzabriskie/axios
+
+// ## Http Interceptors
+axios.interceptors.request.use((config)=>{
+    config.headers = {
+        'Content-Type': 'application/json',
+        'token': '12345'
+    }
+    return config
+})
+axios.interceptors.response.use((response)=>{
+    console.log(response)
+    // Si existe un problema de red, terminar la promesa
+    if( response instanceof Error ){
+        return Promise.reject(response.message)
+    }else{
+        return Promise.resolve(response.data)
+    }
+})
+
+// ## Peticiones, retornar promesas
 
 export let server = {
     getAll: ()=>{
-        return new Promise((resolve, reject)=>{
-            request
-                .get(`/v1/server`)
-                .set('Content-Type', 'application/json')
-                .set('token', '12345')
-                .end((err, res)=>{
-                    if(err){
-                        reject(err.message)
-                    }else{
-                        resolve(res.body)
-                    }
-                })
-        })
-    },
+        return axios.get(`/v1/server`)
+    }
+/*
     get: (serverId)=>{
         return new Promise((resolve, reject)=>{
             request
@@ -79,5 +89,6 @@ export let server = {
                     }
                 })
         })
-    },
+    }
+    */
 }

@@ -1,21 +1,23 @@
+/*
 import React from 'react'
 import Router from 'react-router'
 
 import {Route, NotFoundRoute, DefaultRoute} from 'react-router'
 
 // Components
-import AppView   from './components/appView.jsx'
+import AppRoot   from './components/appView.jsx'
 import Home  from './components/home.jsx'
 import ServerInfo  from './components/ServerInfo.jsx'
 import ServersInfo from './components/ServersInfo.jsx'
 import AddServer from './components/addServer.jsx'
 import NotFound from './components/notFound.jsx'
 
-export default (
-    <Route name="app" component={AppView} path="/">
-        <Route component={Home} path="home" />
-    </Route>
-);
+// render solo con redux
+//export default (
+//    <Route name="app" component={AppRoot} path="/">
+//        <Route component={Home} path="home" />
+//    </Route>
+//);
 
 //export default (
 //    <Route name="app" component={App} path="/">
@@ -25,5 +27,5 @@ export default (
 //        <Route component={ServerInfo}  path="server/:serverId" params="{{serverId: serverId}}"/>
 //    </Route>
 //);
-
 //<NotFoundRoute handler={NotFound}/>
+    */

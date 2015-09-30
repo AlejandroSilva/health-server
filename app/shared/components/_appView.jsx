@@ -1,28 +1,33 @@
 import React, { PropTypes } from 'react'
 import {Link, RouteHandler} from 'react-router'
-import ServerList from './ServerList.jsx'
+//import ServerList from './ServerList.jsx'
 import {connect} from 'react-redux'
 
-@connect((state)=> ({ todos: state.todos }))
+//@connect((state)=> ({ todos: state.todos }))
 export default class AppView extends React.Component{
-    static propTypes = {
-        children: PropTypes.object
-    }
+    //static propTypes = {
+    //    children: PropTypes.object
+    //}
 
-    componentDidMount = ()=>{
-        this.props.history.pushState(null, '/');
-    }
+    //componentDidMount = ()=>{
+    //    this.props.history.pushState(null, '/');
+    //}
 
     render(){
         return (
-            <div id="app-view">
-                <ServerList />
-                <hr />
-                {this.props.children}
-                <RouteHandler/>
-            </div>
-        );
+            <h1>asdasdasd</h1>
+        )
     }
+    //renderX(){
+    //    return (
+    //        <div id="app-view">
+    //            {<ServerList />}
+    //            <hr />
+    //            {this.props.children}
+    //            <RouteHandler/>
+    //        </div>
+    //    );
+    //}
 }
 //connect(
 //    //mapStateToProps,

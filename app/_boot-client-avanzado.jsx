@@ -62,7 +62,7 @@ class Lista extends React.Component {
     render() {
         return (
             <div>
-                <h4>Server list asd</h4>
+                <h4>Server list</h4>
                 {this.props.servers.list.map((server, index)=> {
                     return <p key={index}>{server.host}</p>
                 })}

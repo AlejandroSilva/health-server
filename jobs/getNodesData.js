@@ -1,28 +1,29 @@
-import request from 'request';
+import axios from 'axios';
 import Server from '../db/Server.js';
 import Data from '../db/Data.js';
 
 function fetchData(server){
     return new Promise((resolve, reject)=>{
-        request(`http://${server.host}:${server.port}/v1/info`, {timeout: 15000}, function (err, res, body) {
-            if(err){
-                // request no pudo hacer una peticion al servidor
-                reject(`Error al obtener datos de '${server.name}' (${server.host}:${server.port}): ${err.code}`);
-            }else{
-                if(res.statusCode===200){
-                    try{
-                        let serverData = JSON.parse(body);
-                        // resolve solo permite 1 argumento, entonces lo agrupamos
-                        resolve([server, serverData]);
-                    }catch(err){
-                        reject(`Error parseando la respuesta de la estacion ${server.name}' (${server.host}:${server.port}).`);
-                    }
+        axios.get(`http://${server.host}:${server.port}/v1/info`, {timeout: 15000})
+            .then((response)=> {
+                if(response.status===200){
+                    // resolve solo permite 1 argumento, entonces lo agrupamos
+                    resolve([server, response.data]);
                 }else{
                     // el servidor respondio, pero no un 'OK'
-                    reject(`Peticion correcta, pero '${server.name}' (${server.host}:${server.port}) respondio: ${res.statusCode}`);
+                    reject(`Peticion correcta, pero '${server.name}' (${server.host}:${server.port}) respondio: ${response.status}`);
                 }
-            }
-        })
+            })
+            .catch((response)=>{
+                let errorMessage
+                if(response instanceof Error){
+                    errorMessage = response.message
+                }else{
+                    errorMessage = `statusCode=${response.status}`
+                }
+                // request no pudo hacer una peticion al servidor
+                reject(`Error al obtener datos de '${server.name}' (${server.host}:${server.port}): ${errorMessage}`);
+            })
     })
 }
 

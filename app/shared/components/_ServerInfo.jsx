@@ -1,6 +1,6 @@
 import React from 'react'
 import {Navigation} from 'react-router'
-import * as Api from './../../client/apiV1.js'
+import * as Api from './../../client/v1.js'
 import io from 'socket.io-client'
 let socket = io.connect('http://localhost:8888')
 

@@ -1,3 +1,4 @@
+/*
 import React from 'react'
 import * as Api from './../../client/apiV1.js'
 
@@ -55,3 +56,4 @@ export default class AddServer extends React.Component{
         )
     }
 }
+*/
