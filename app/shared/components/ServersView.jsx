@@ -45,12 +45,16 @@ class ServersView extends React.Component {
 
         return (
             <div>
-                <h2>Servers view</h2>
-                {/*servers.list.map((server, index)=> {
-                 return <p key={index}><b>{server}</b></p>
-                 })*/}
-                <button onClick={this.metodo.bind(this)}>ServersView.metodo</button>
-                {this.props.children}
+                <section className="content-header">
+                    <h2>Servers view</h2>
+                </section>
+                <section className="content">
+                    {/*servers.list.map((server, index)=> {
+                     return <p key={index}><b>{server}</b></p>
+                     })*/}
+                    <button onClick={this.metodo.bind(this)}>ServersView.metodo</button>
+                    {this.props.children}
+                </section>
             </div>
         );
     }

@@ -31,22 +31,8 @@ app.use('/v1/', v1);
 
 // React + Redux libs
 import React from 'react'
-//import ReactDOM from 'react-dom/server.js'
 import { applyMiddleware, createStore } from 'redux'
-//import combinedReducers from './shared/reducers/combinedReducers.js'
 import { Provider } from 'react-redux'
-//import fetchComponentData from './shared/lib/fetchComponentData.js'
-
-// Rutas
-//import { RoutingContext, match } from 'react-router'
-//import createLocation from 'history/lib/createLocation.js'
-//import routes from './shared/routes.jsx'
-
-//import App from './shared/containers/App.js'
-//import AppRoot from './shared/components/appView.jsx'
-//import CounterApp from './shared/components/Counter.js'
-//import { fetchCounter } from './shared/api/counter.js'
-//import configureStore from './shared/store/configureStore.js'
 
 app.get('/*', function (req, res) {
     //let location = createLocation(req.url)
@@ -64,13 +50,25 @@ app.get('/*', function (req, res) {
             <html>
                 <head>
                     <meta charset="utf-8"/>
+                    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
                     <title>Health Monitor - Toth</title>
+                    <!-- Bootstrap 3.3.5 -->
+                    <link type="text/css" rel="stylesheet" href="bootstrap/bootstrap.min.css">
+                    <!-- AdminLTE -->
+                    <link type="text/css" rel="stylesheet" href="adminlte/css/AdminLTE.min.css">
+                    <link type="text/css" rel="stylesheet" href="adminlte/css/skins/skin-blue.min.css">
+                    <!-- Font-awesome -->
+                    <link type="text/css" rel="stylesheet" href="font-awesome/font-awesome.min.css">
+                    <!--
+                    <script type="application/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+                    <script type="application/javascript" src="/adminlte/js/app.min.js"></script>
+                    -->
                     <script>
                         // window.__INITIAL_STATE__ = ${"JSON.stringify(initialState)"};
                     </script>
                 </head>
-                <body>
-                    <div id="appRoot">
+                <body class="skin-blue sidebar-mini">
+                    <div id="appRoot" class="wrapper">
                         ${"componentHTML"}
                     </div>
                     <script type="application/javascript" src="/bundle.js"></script>
@@ -80,67 +78,6 @@ app.get('/*', function (req, res) {
         // }) end fetchCounter
 })
 /*
-app.get('/*', function (req, res) {
-    let location = createLocation(req.url)
-    let reducer = combinedReducers
-    let store = applyMiddleware(promiseMiddleware)(createStore)(reducer)
-    let store2 = createStore(reducer)
-
-    match({location, routes}, (err, redirectLocation, renderProps)=>{
-        if(err){
-            console.error(err)
-            return res.status(500).end('[Router] Internal server error')
-        }
-        if(!renderProps){
-            return res.status(400).end('[Router] Route not found')
-        }
-
-        function renderView(){
-            const InitialView = (
-                <Provider store={store}>
-                    {() =>
-                        <RoutingContext {...renderProps} />
-                    }
-                </Provider>
-            );
-            let componentHTML = React.renderToString(InitialView)
-            console.log("222", componentHTML)
-            let initialState = store.getState()
-
-            console.log(componentHTML)
-            let html = `
-                <!DOCTYPE html>
-                <html>
-                    <head>
-                        <meta charset="utf-8"/>
-                        <title>Health Monitor - Toth</title>
-                        <script>
-                            window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
-                        </script>
-                    </head>
-                    <body>
-                        <div id="appRoot">
-                            ${componentHTML}
-                        </div>
-                        <script type="application/javascript" src="/bundle.js"></script>
-                    </body>
-                </html>
-            `
-            return html
-        }
-        // PENDIENTE: fetchComponentData...
-        fetchComponentData(store.dispatch, renderProps.components, renderProps.params)
-        .then(renderView)
-        .then((html)=> res.end(html))
-        .catch((err)=>{
-            console.log(err)
-            res.status(500).send(err)
-        })
-        //res.setHeader('Cache-Control', 'no-cache');
-        //res.send( renderView() );
-    })
-});
-*/
 
 /*
  * Middlewares
