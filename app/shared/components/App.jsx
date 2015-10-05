@@ -1,3 +1,5 @@
+import config from '../../../config/index.js'
+
 // React, Redux, Router
 import React from 'react'
 import { bindActionCreators } from 'redux'
@@ -8,6 +10,10 @@ import { Link } from 'react-router'
 import * as CounterActions from '../actions/counterActions.js'
 import * as ServersActions from '../actions/serversActions.js'
 
+// Socket IO
+import io from 'socket.io-client'
+let socket = io.connect(`http://localhost:${config.app.port}`)
+
 // Components
 import ServersList from './ServersList.jsx'
 
@@ -15,7 +21,6 @@ import ServersList from './ServersList.jsx'
     (state)=> ({
         routerState: state.router,
         servers: state.servers,
-        allState: state
     }),
     (dispatch)=>{
         // http://rackt.github.io/redux/docs/api/bindActionCreators.html
@@ -34,9 +39,18 @@ class App extends React.Component {
     }
     componentDidMount(){
         // Obtener la lista de servidores
-        this.props.servers_getAll(()=>{})
+        this.props.serverGetAll(()=>{})
         // realizar la conexion por sockets para recibir los cambios
-
+        socket.on('serverCreated', (server)=>{
+            console.log("created:", server)
+        })
+        socket.on('serverUpdated', (server)=>{
+            this.props.serverUpdate(server)
+            //console.log("from socket: ", server.updatedAt)
+        })
+        socket.on('serverDeleted', (server)=>{
+            console.log("deleted: ", server)
+        })
     }
     metodo(){
         console.log("------------------------")
@@ -97,17 +111,18 @@ class App extends React.Component {
                                 <i className="fa fa-cogs">XXX</i>
 
                             </ul>
-                            <button onClick={this.metodo.bind(this)}>App.metodo</button>
+                            {/*<button onClick={this.metodo.bind(this)}>App.metodo</button>*/}
                             <button onClick={ this.props.create }>App.CREATE_SERVER</button>
                         </section>
                     </aside>
 
                     {/* Cuerpo de la pagina */}
-                    <div className="content-wrapper" style={{minHeight: 901+'px'}}>
-                        {this.props.children}
+                    <div className="content-wrapper" style={{minHeight: 901+'px', maxWidth: 800+'px'}}>
+                        {this.props.children || "Seleccione un servidor desde el menu lateral"}
                     </div>
                 </div>
         );
     }
 }
+
 export default App

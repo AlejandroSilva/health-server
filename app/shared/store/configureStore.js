@@ -35,16 +35,19 @@ export default function configureStore(initialState) {
 // const initialState = window.__INITIAL_STATE__ || 666
 // const store = configureStore(initialState)
 
+// Redux
 import { compose, createStore, applyMiddleware } from 'redux'
-// Middlewares
 import thunk from 'redux-thunk';
+
+// Redux devTools
+import { devTools } from 'redux-devtools'
+
 // Router
 import { ReduxRouter, reduxReactRouter } from 'redux-router'
 import createHistory from 'history/lib/createBrowserHistory'
+
 // Reducers
-import combinedReducer from '../reducers/combinedReducers.js'
-// Redux devTools
-import { devTools } from 'redux-devtools'
+import { combinedReducers, combinedInitialStates } from '../reducers/combinedReducers.js'
 
 export default function configureStore(initialState){
     let store = compose(
@@ -54,12 +57,16 @@ export default function configureStore(initialState){
         }),
         // Todo: Only on development
         devTools()
-    )(createStore)(combinedReducer, {
-        counter: 33,
-        servers: {
-            //list: [33, 23, 43, 53, 64]
-            list: []
-        }
-    })
+    )(createStore)(combinedReducers, combinedInitialStates)
+
+    if (module.hot) {
+        console.log("actualizando reducer")
+        // Enable Webpack hot module replacement for reducers
+        module.hot.accept('../reducers/combinedReducers.js', () => {
+            const nextRootReducer = require('../reducers/combinedReducers.js').combinedReducers;
+            store.replaceReducer(nextRootReducer);
+        });
+    }
+
     return store
 }

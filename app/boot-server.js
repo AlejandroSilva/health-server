@@ -53,16 +53,12 @@ app.get('/*', function (req, res) {
                     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
                     <title>Health Monitor - Toth</title>
                     <!-- Bootstrap 3.3.5 -->
-                    <link type="text/css" rel="stylesheet" href="bootstrap/bootstrap.min.css">
+                    <link type="text/css" rel="stylesheet" href="/bootstrap/bootstrap.min.css">
                     <!-- AdminLTE -->
-                    <link type="text/css" rel="stylesheet" href="adminlte/css/AdminLTE.min.css">
-                    <link type="text/css" rel="stylesheet" href="adminlte/css/skins/skin-blue.min.css">
+                    <link type="text/css" rel="stylesheet" href="/adminlte/css/AdminLTE.min.css">
+                    <link type="text/css" rel="stylesheet" href="/adminlte/css/skins/skin-blue.min.css">
                     <!-- Font-awesome -->
-                    <link type="text/css" rel="stylesheet" href="font-awesome/font-awesome.min.css">
-                    <!--
-                    <script type="application/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-                    <script type="application/javascript" src="/adminlte/js/app.min.js"></script>
-                    -->
+                    <link type="text/css" rel="stylesheet" href="/font-awesome/font-awesome.min.css">
                     <script>
                         // window.__INITIAL_STATE__ = ${"JSON.stringify(initialState)"};
                     </script>

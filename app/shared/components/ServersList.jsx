@@ -15,10 +15,11 @@ class ServersList extends React.Component {
                     {this.props.servers.map((server, index)=> {
                         return (
                             <li key={server.id}>
-                                <Link to={`/server/${server.id}`}>{server.name}</Link>
+                                <Link to={`/server/${server.id}/data`}>{server.name}</Link>
                             </li>
                         )
                      })}
+                    <li key='100' ><Link to={'/server/estaidnoexiste'}>server inexistente</Link></li>
                 </ul>
             </li>
         );

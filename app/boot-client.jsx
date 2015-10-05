@@ -4,22 +4,39 @@ import ReactDOM from 'react-dom';
 
 // Router
 import { Provider, connect } from 'react-redux'
-import { Route } from 'react-router'
+import { Route, IndexRoute, Redirect } from 'react-router'
 import { ReduxRouter } from 'redux-router'
 
 // Dev Tools
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 
 // Components
-import App from './shared/components/App.jsx'
-import ServersView from './shared/components/ServersView.jsx'
-import ServerView from './shared/components/ServerView.jsx'
+import {
+    App,
+    ServersView,
+    ServerContainer,
+    ServerData,
+    ServerEdit,
+    ServerEvents,
+    NotFound
+} from './shared/components/index.js'
 
 // Store
 import configureStore from './shared/store/configureStore.js'
 let store = configureStore({})
 
 class Root extends React.Component {
+    //selectServer(nextState, transition, callback){
+    //    console.log("selected new server")
+    //    let paramId = nextState.params.id
+    //    store.dispatch({
+    //        type: "SELECT_SERVER",
+    //        serverID: paramId
+    //    })
+    //    //console.log({nextState,transition,callback})
+    //    //console.log(paramId)
+    //    //console.log(store.getState().servers.list)
+    //}
     render() {
         // las rutas (Route) pueden tener un metodo onEnter y onLeave
         return (
@@ -28,7 +45,14 @@ class Root extends React.Component {
                     <ReduxRouter>
                         <Route path="/" component={ App }>
                             <Route path="servers" component={ ServersView } />
-                            <Route path="server/:id" component={ ServerView } />
+                            <Route path="server/:id" component={ ServerContainer }>
+                                {/*<IndexRoute component={ ServerData }/>*/}
+
+                                <Route path="data"   component={ ServerData } />
+                                <Route path="edit"   component={ ServerEdit } />
+                                <Route path="events" component={ ServerEvents }/>
+                            </Route>
+                            <Route path="*" component={ NotFound }></Route>
                         </Route>
                     </ReduxRouter>
                 </Provider>
@@ -43,12 +67,3 @@ ReactDOM.render(
     <Root />,
     document.getElementById('appRoot')
 );
-
-//if (module.hot) {
-//    console.log("IS CLIENTE!!!")
-//    // Enable Webpack hot module replacement for reducers
-//    module.hot.accept('./shared/reducers/combinedReducers.js', () => {
-//        const nextRootReducer = require('./shared/reducers/combinedReducers.js');
-//        store.replaceReducer(nextRootReducer);
-//    });
-//}

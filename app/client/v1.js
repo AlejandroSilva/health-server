@@ -11,8 +11,7 @@ axios.interceptors.request.use((config)=>{
     return config
 })
 axios.interceptors.response.use((response)=>{
-    console.log(response)
-    // Si existe un problema de red, terminar la promesa
+   // Si existe un problema de red, terminar la promesa
     if( response instanceof Error ){
         return Promise.reject(response.message)
     }else{

@@ -16,6 +16,7 @@ function thinkyErrors(err, req, res, next) {
 
 function unhandledError(err, req, res, next){
     //throw err;
+    console.error(err);
     res.status(500).json({
         message: 'Unhandled error',
         original: err.message

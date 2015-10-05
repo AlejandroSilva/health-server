@@ -18,11 +18,11 @@ import getNodesData from './jobs/getNodesData.js';
 //// every 20 second...
 
 let j0 = schedule.scheduleJob({second: 0}, getNodesData);
-let j1 = schedule.scheduleJob({second: 10}, getNodesData);
+//let j1 = schedule.scheduleJob({second: 10}, getNodesData);
 let j2 = schedule.scheduleJob({second: 20}, getNodesData);
-let j3 = schedule.scheduleJob({second: 30}, getNodesData);
+//let j3 = schedule.scheduleJob({second: 30}, getNodesData);
 let j4 = schedule.scheduleJob({second: 40}, getNodesData);
-let j5 = schedule.scheduleJob({second: 50}, getNodesData);
+//let j5 = schedule.scheduleJob({second: 50}, getNodesData);
 
 
 let io = socket(server)
@@ -44,15 +44,16 @@ Server
             }
             if (!server.isSaved()) {
                 // server eliminado
-                console.log("servidor eliminado", server.name)
+                io.emit(`serverDeleted`, server)
+                console.log(`[SocketIO] 'serverDeleted' emited. (Server:{server.id}).`)
             }
             else if (server.getOldValue() === null) {
                 // new server
-                console.log("nuevo servidor", server.name)
+                io.emit(`serverCreated`, server)
+                console.log(`[SocketIO] 'serverCreated' emited. (Server:{server.id}).`)
             }else{
-                io.emit(`updated:${server.id}`, server)
-                console.log(`[SocketIO] 'updated:${server.id}' emited`)
-                // server updated
+                io.emit(`serverUpdated`, server)
+                console.log(`[SocketIO] 'serverUpdated' emited. (Server:${server.id}).`)
             }
         })
     })
