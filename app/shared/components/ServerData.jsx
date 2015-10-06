@@ -17,10 +17,13 @@ import Ram from './modules/Ram.jsx'
 
 class ServerData extends React.Component {
     render() {
-        return (
-            <div>
-                <h1>server data</h1>
-                {Object.getOwnPropertyNames(this.props.theServer.currentData).map((module)=> {
+        let content
+        if(!this.props.theServer.name){
+            content = "[servidor no existe]"
+
+        }else if(this.props.theServer.currentData){
+            content = (
+                Object.getOwnPropertyNames(this.props.theServer.currentData).map((module)=> {
                     {
                         if (module === 'cpu') {
                             return <Cpu key="cpu" data={this.props.theServer.currentData[module]}/>
@@ -40,10 +43,18 @@ class ServerData extends React.Component {
                             return <h3>{module}</h3>
                         }
                     }
-                })}
+                })
+            )
+
+        }else{
+            content = <h3>Todavia no se reciben datos de este servidor</h3>
+        }
+
+        return (
+            <div>
+                {content}
             </div>
         )
-
     }
 }
 export default ServerData

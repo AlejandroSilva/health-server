@@ -24,6 +24,12 @@ axios.interceptors.response.use((response)=>{
 export let server = {
     getAll: ()=>{
         return axios.get(`/v1/server`)
+    },
+    update: (server)=>{
+        return axios.put(
+            `/v1/server/${server.id}`,
+            server
+        )
     }
 /*
     get: (serverId)=>{
@@ -45,22 +51,6 @@ export let server = {
         return new Promise((resolve, reject)=>{
             request
                 .post('/v1/server')
-                .set('Content-Type', 'application/json')
-                .set('token', '12345')
-                .send(server)
-                .end((err, res)=>{
-                    if(err){
-                        reject(err.message)
-                    }else{
-                        resolve(res)
-                    }
-                })
-        })
-    },
-    update: (server)=>{
-        return new Promise((resolve, reject)=>{
-            request
-                .put(`/v1/server/${server.id}`)
                 .set('Content-Type', 'application/json')
                 .set('token', '12345')
                 .send(server)

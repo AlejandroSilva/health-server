@@ -14,6 +14,7 @@ import DiscMounted from './modules/DiscMounted.jsx'
 import NetIO from './modules/NetIO.jsx'
 import Ping from './modules/Ping.jsx'
 import Ram from './modules/Ram.jsx'
+import { ErrorPage } from './index.js'
 
 @connect(
     (state)=> ({
@@ -30,43 +31,28 @@ import Ram from './modules/Ram.jsx'
 )
 class ServerContainer extends React.Component {
     render() {
+        // busca el servidor con el id que nos interesa
+        let theServer = this.props.servers.list.find((server)=>this.props.params.id===server.id) || {}
+        if(!theServer.name) {
+            return <ErrorPage
+                code={404}
+                title="Servidor no encontrado"
+                message="El servidor que busca no ha sido encontrado. Esto se puede deber a que el ID no sea el correcto, o que haya sido eliminado." />
+        }
         //console.log(this.props)
         const pathname = this.props.location.pathname
         const paths = pathname.split('/')
         const activePath = paths[paths.length-1]
-
-        // busca el servidor con el id que nos interesa
-        let theServer = this.props.servers.list.find((server)=>this.props.params.id===server.id) || {}
-        let content, header
-        if(!theServer.name){
-            header = <h1>Error 1</h1>
-            content = <h3>El servidor indicado no existe</h3>
-
-        }else if(!theServer.currentData){
-            header = <h1>
-                <b>{theServer.name}</b> ({theServer.host})
-                <small>{theServer.project}</small>
-            </h1>
-            content = <h3>Todavia no se reciben datos de este servidor</h3>
-
-        }else {
-            header = <h1>
-                <b>{theServer.name}</b> ({theServer.host})
-                <small>{theServer.project}</small>
-            </h1>
-            content = (
-                this.props.children && React.cloneElement(this.props.children, {
-                    theServer
-                })
-            )
-        }
 
         return (
             <div>
                 <section className="content">
                     <div className="row">
                         <div className="nav-tabs-custom col-12-md">
-                            {header}
+                            <h1>
+                                <b>{theServer.name}</b> ({theServer.host})
+                                <small> {theServer.project}</small>
+                            </h1>
                             <ul className="nav nav-tabs">
                                 <li className={activePath==='data'? 'active':''}>
                                     <Link to={`/server/${this.props.params.id}/data`} data-toggle="tab">
@@ -80,13 +66,17 @@ class ServerContainer extends React.Component {
                                 </li>
                                 <li className={activePath==='events'? 'active':''}>
                                     <Link to={`/server/${this.props.params.id}/events`} data-toggle="tab">
-                                        Eventos
+                                        Eventos del servidor
                                     </Link>
                                 </li>
                             </ul>
 
                             <div className="tab-content">
-                                {content || <h3>Seleccione una opcion</h3>}
+                                {(
+                                    this.props.children && React.cloneElement(this.props.children, {
+                                        theServer
+                                    })
+                                )|| <h3>Seleccione una opcion</h3>}
                             </div>
                         </div>
 

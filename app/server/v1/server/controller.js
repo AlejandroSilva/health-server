@@ -35,8 +35,21 @@ export function getServer(req, res){
     res.json(req.server);
 }
 
+// PUT /v1/server/:serverHost
 export function updateServer(req, res){
-    res.status(501).json(req.server)
+    req.server.host = req.body.host
+    req.server.name = req.body.name
+    req.server.port = req.body.port
+    req.server.project = req.body.project
+    req.server.save()
+        .then(function(result) {
+            res.status(200).json(result);
+        })
+        .error((err)=>{
+            res.status(500).json({
+                error: err.message
+            })
+        });
 }
 
 // DELETE /v1/server/:serverHost

@@ -45,20 +45,12 @@ class App extends React.Component {
             console.log("created:", server)
         })
         socket.on('serverUpdated', (server)=>{
-            this.props.serverUpdate(server)
+            this.props.serverUpdateData(server)
             //console.log("from socket: ", server.updatedAt)
         })
         socket.on('serverDeleted', (server)=>{
             console.log("deleted: ", server)
         })
-    }
-    metodo(){
-        console.log("------------------------")
-        console.log("App.this")
-        console.log(this)
-        console.log("App.props")
-        console.log(this.props)
-        console.log("------------------------")
     }
     render() {
         return (
@@ -111,7 +103,6 @@ class App extends React.Component {
                                 <i className="fa fa-cogs">XXX</i>
 
                             </ul>
-                            {/*<button onClick={this.metodo.bind(this)}>App.metodo</button>*/}
                             <button onClick={ this.props.create }>App.CREATE_SERVER</button>
                         </section>
                     </aside>

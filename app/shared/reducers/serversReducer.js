@@ -17,21 +17,30 @@ export let serversReducer = (state=defaultState, action={})=>{
         break
 
         case serverAction.UPDATE_SERVER:
-            let state__update = Immutable.fromJS(state)
-            // buscar el servidor y reemplazar sus datos
-            let list__update = state.list.map((server)=>{
+            let list_update_server = state.list.map((server)=>{
                 if(server.id===action.updatedServer.id){
                     return action.updatedServer
                 }else{
                     return server
                 }
             })
-            state__update = state__update.set('list', list__update)
-            // si el servidor es tambien el selected, tambien actualizar sus datos
-            //if(state.selectedID===action.updatedServer.id){
-            //    state__update = state__update.set('selectedData', Immutable.fromJS(action.updatedServer))
-            //}
-            return state__update.toJS()
+            return Object.assign({}, state, {
+                list: list_update_server
+            })
+        break;
+
+        case serverAction.UPDATE_SERVER_DATA:
+            // buscar el servidor y reemplazar sus datos
+            let list__update_server_data = state.list.map((server)=>{
+                if(server.id===action.newData.id){
+                    return action.newData
+                }else{
+                    return server
+                }
+            })
+            return Object.assign({}, state, {
+                list: list__update_server_data
+            })
         break
 
         case serverAction.REMOVE_SERVER:
@@ -39,14 +48,9 @@ export let serversReducer = (state=defaultState, action={})=>{
         break
 
         case serverAction.GETALL_SERVER:
-            // actualizar los datos del "selected server"
-            //let selectedData__getAll = action.servers.find((server)=> server.id===state.selectedID)
-
-            return Immutable
-                .fromJS(state)
-                .set('list', Immutable.fromJS(action.servers))
-                //.set('selectedData', Immutable.fromJS(selectedData__getAll || {}))
-                .toJS()
+            return Object.assign({}, state, {
+                list: action.servers
+            })
         break
 
         //case serverAction.SELECT_SERVER:
