@@ -1,12 +1,18 @@
+// React
 import React from 'react'
+
+// Components
+import { ErrorPage } from './index.js'
 
 class NotFound extends React.Component{
     render(){
-        return (
-            <div>
-                <h1>404, route not found</h1>
-                {this.props.children}
-            </div>
+        return(
+            <ErrorPage
+                code={404}
+                title="Oops! Pagina no encontrada."
+                message="La pagina que ha solicitado no se encuentra disponible, esto puede ser debido
+                a que la ruta ha cambiado, o la dirección que ha escrito es incorrecta."
+            />
         )
     }
 }

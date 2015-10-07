@@ -30,6 +30,19 @@ export let server = {
             `/v1/server/${server.id}`,
             server
         )
+    },
+    create: (server)=>{
+        // convert 'port' from number to string
+        server.port = ''+server.port
+        return axios.post(
+            `/v1/server/`,
+            server
+        )
+    },
+    delete: (serverID)=>{
+        return axios.delete(
+            `/v1/server/${serverID}`
+        )
     }
 /*
     get: (serverId)=>{
@@ -43,22 +56,6 @@ export let server = {
                         reject(err.message)
                     }else{
                         resolve(res.body)
-                    }
-                })
-        })
-    },
-    create: (server)=>{
-        return new Promise((resolve, reject)=>{
-            request
-                .post('/v1/server')
-                .set('Content-Type', 'application/json')
-                .set('token', '12345')
-                .send(server)
-                .end((err, res)=>{
-                    if(err){
-                        reject(err.message)
-                    }else{
-                        resolve(res)
                     }
                 })
         })

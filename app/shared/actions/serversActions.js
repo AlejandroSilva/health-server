@@ -1,31 +1,56 @@
 import * as API from '../../client/v1.js'
-export const CREATE_SERVER = 'CREATE_SERVER'
+export const GET_SERVERS = 'GET_SERVERS'
+export const ADD_SERVER    = 'ADD_SERVER'
 export const UPDATE_SERVER = 'UPDATE_SERVER'
-export const UPDATE_SERVER_DATA = 'UPDATE_SERVER_DATA'
-export const REMOVE_SERVER = 'REMOVE_SERVER'
-export const GETALL_SERVER = 'GETALL_SERVER'
+export const DELETE_SERVER = 'DELETE_SERVER'
+export const ADD_SERVER_SOCKET = 'ADD_SERVER_SOCKET'
+export const UPDATE_SERVER_SOCKET = 'UPDATE_SERVER_SOCKET'
+export const DELETE_SERVER_SOCKET = 'DELETE_SERVER_SOCKET'
 
-export const serverUpdateData = (newData)=>{
-    return {
-        type: UPDATE_SERVER_DATA,
-        newData
-    };
+// llamado al cargar la pagina
+export const getServers = (callback)=>{
+    return (dispatch, getState)=>{
+        API.server.getAll()
+            .then((servers)=>{
+                dispatch({
+                    type: GET_SERVERS,
+                    servers: servers
+                })
+                callback(null)
+            })
+            .catch(callback)
+    }
 }
 
-export const create = ()=>{
+// llamado desde un formulario
+export const addServer = (serverForm, callback)=> {
+    return (dispatch, getState)=> {
+        API.server.create(serverForm)
+            .then((newServer)=>{
+                callback(null, newServer)
+                // no es necesario hacer un dispatch, al crear un dato, luego llega por socket
+                //dispatch({
+                //    type: ADD_SERVER,
+                //    newServer
+                //})
+            })
+            .catch(callback)
+    }
+}
+// llamado desde socket cuando se crea un servidor
+export const addServerFromSocket = (newServer)=>{
     return {
-        type: CREATE_SERVER,
-        nuevoServer: {
-
-        }
-    };
+        type: ADD_SERVER_SOCKET,
+        newServer
+    }
 }
 
-export const serverUpdate = (updatedServer, callback)=>{
+// llamado desde el formulario de edicion
+export const updateServer = (updatedServer, callback)=>{
     return (dispatch, getState)=>{
         API.server.update(updatedServer)
-            .then((newServerData)=>{
-                callback(null, newServerData)
+            .then((server)=>{
+                callback(null, server)
                 dispatch({
                     type: UPDATE_SERVER,
                     updatedServer
@@ -34,25 +59,40 @@ export const serverUpdate = (updatedServer, callback)=>{
             .catch(callback)
     }
 }
-
-export const remove = ()=>{
+// llamado desde socket cuando llega un dato nuevo
+export const updateServerFromSocket = (updatedServer)=>{
     return {
-        type: REMOVE_SERVER
+        type: UPDATE_SERVER_SOCKET,
+        updatedServer
     };
 }
 
-export const serverGetAll = (callback)=>{
-    return (dispatch, getState)=>{
-        API.server.getAll()
-            .then((servers)=>{
-                dispatch({
-                    type: GETALL_SERVER,
-                    servers: servers
-                })
-                callback(null)
+export const deleteServer = (serverID, callback)=>{
+    return (dispatch, getState)=> {
+        API.server.delete(serverID)
+            .then((resp)=>{
+                callback(null, resp)
+                // no es necesario hacer un dispatch, al crear un dato, luego llega por socket
             })
-            .catch(callback)
+            .catch((resp)=> {
+                // si el documento estaba eliminado, de todas formas quitarlo de la lista
+                if(resp.message==='Document not found'){
+                    dispatch({
+                        type: DELETE_SERVER,
+                        serverID
+                    })
+                    callback(null)
+                }else{
+                    callback(err.message)
+                }
+            })
     }
+}
+export const deleteServerFromSocket = (serverID)=>{
+    return {
+        type: DELETE_SERVER_SOCKET,
+        serverID
+    };
 }
 
 /*

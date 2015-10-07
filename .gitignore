@@ -5,3 +5,4 @@ npm-debug*
 
 # hot loader generated files
 public/*.hot-update.*
+.DS_Store

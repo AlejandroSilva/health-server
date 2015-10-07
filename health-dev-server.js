@@ -45,12 +45,13 @@ Server
             if (!server.isSaved()) {
                 // server eliminado
                 io.emit(`serverDeleted`, server)
-                console.log(`[SocketIO] 'serverDeleted' emited. (Server:{server.id}).`)
-            }
-            else if (server.getOldValue() === null) {
+                console.log(`[SocketIO] 'serverDeleted' emited. (Server:${server.id}).`)
+
+            }else if (server.getOldValue() === null) {
                 // new server
                 io.emit(`serverCreated`, server)
-                console.log(`[SocketIO] 'serverCreated' emited. (Server:{server.id}).`)
+                console.log(`[SocketIO] 'serverCreated' emited. (Server:${server.id}).`)
+
             }else{
                 io.emit(`serverUpdated`, server)
                 console.log(`[SocketIO] 'serverUpdated' emited. (Server:${server.id}).`)

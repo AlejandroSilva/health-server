@@ -16,7 +16,8 @@ import {
     ServersView,
     ServerContainer,
     ServerData,
-    ServerEdit,
+    EditServer,
+    AddServer,
     ServerEvents,
     NotFound
 } from './shared/components/index.js'
@@ -45,11 +46,12 @@ class Root extends React.Component {
                     <ReduxRouter>
                         <Route path="/" component={ App }>
                             <Route path="servers" component={ ServersView } />
+                            <Route path="add" component={ AddServer } />
                             <Route path="server/:id" component={ ServerContainer }>
                                 {/*<IndexRoute component={ ServerData }/>*/}
 
                                 <Route path="data"   component={ ServerData } />
-                                <Route path="edit"   component={ ServerEdit } />
+                                <Route path="edit"   component={ EditServer } />
                                 <Route path="events" component={ ServerEvents }/>
                             </Route>
                             <Route path="*" component={ NotFound }></Route>

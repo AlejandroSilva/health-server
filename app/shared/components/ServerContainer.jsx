@@ -37,7 +37,8 @@ class ServerContainer extends React.Component {
             return <ErrorPage
                 code={404}
                 title="Servidor no encontrado"
-                message="El servidor que busca no ha sido encontrado. Esto se puede deber a que el ID no sea el correcto, o que haya sido eliminado." />
+                message="El servidor que busca no ha sido encontrado. Esto se puede deber a que el ID no sea el correcto, o que haya sido eliminado."
+                />
         }
         //console.log(this.props)
         const pathname = this.props.location.pathname

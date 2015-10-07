@@ -1,28 +1,11 @@
 // React, Redux, Router
 import React, { PropTypes} from 'react'
-import { Link } from 'react-router'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
 
-// Actions
-import * as ServersActions from '../actions/serversActions.js'
 
 // Components
-import { Alert, FormGroup } from './index.js'
+import { Alert, FormGroup } from '../index.js'
 
-@connect(
-    (state)=> ({
-        servers: state.servers,
-    }),
-    (dispatch)=>{
-        // http://rackt.github.io/redux/docs/api/bindActionCreators.html
-        return bindActionCreators(
-            ServersActions,
-            dispatch
-        )
-    }
-)
-class ServerEdit extends React.Component {
+class ServerForm extends React.Component{
     constructor(props){
         super(props)
         this.state = {
@@ -44,21 +27,51 @@ class ServerEdit extends React.Component {
             server: server
         })
     }
-    editForm(evt){
+    sendForm(evt){
         evt.preventDefault()
-        this.props.serverUpdate(this.state.server, (err, newData)=>{
-            this.setState({
-                error: err? err.data.error : ''
-            })
+
+        if(this.state.server.id!==''){
+            this.update(this.state.server)
+        }else{
+            this.create(this.state.server)
+        }
+    }
+    update(server){
+        this.props.updateServer(server, (err, newData)=>{
+            if(err){
+                this.setState({error: err.data? err.data.error : err.toString()})
+            }else{
+                this.setState({error: ''})
+            }
+        })
+    }
+    create(server){
+        this.props.addServer(server, (err, newServer)=>{
+            if(err){
+                this.setState({error: err.data? err.data.error : err.toString()})
+            }else{
+                // Redireccionar a la pagina del servidor
+                this.props.pushState(null, `/server/${newServer.id}/data`)
+            }
+        })
+    }
+    delete(){
+        this.props.deleteServer(this.state.server.id, (errorMessage, resp)=>{
+            if(errorMessage){
+                this.setState({error: errorMessage})
+            }else{
+                // al eliminar, redireccionar al listado de servidores
+                this.props.pushState(null, '/servers')
+            }
         })
     }
     render() {
         return (
             <div className="box box-info">
                 <div className="box-header with-border">
-                    <h3 className="box-title">Actualizar datos del servidor</h3>
+                    <h3 className="box-title">{this.state.server.id? 'Actualizar datos' : 'Agregar Servidor'}</h3>
                 </div>
-                <form className="form-horizontal" onSubmit={this.editForm.bind(this)}>
+                <form className="form-horizontal" onSubmit={this.sendForm.bind(this)}>
                     <div className="box-body">
                         <FormGroup label="ID">
                             <input type="text" className="form-control"
@@ -80,7 +93,7 @@ class ServerEdit extends React.Component {
                                    onChange={this.handleChange.bind(this, 'host')}
                                    placeholder="Host. Ej. cao.biopacs.com"
                                    required
-                            />
+                                />
                         </FormGroup>
                         <FormGroup label="Puerto">
                             <input type="number" className="form-control"
@@ -103,14 +116,36 @@ class ServerEdit extends React.Component {
                     </div>
 
                     <div className="box-footer">
-                        <button type="submit" className="btn btn-info pull-right">Actualizar</button>
+                        { this.state.server.id!==''?
+                            <button type="button" className="btn btn-danger" onClick={this.delete.bind(this)}>
+                                <i className='fa fa-warning'></i>
+                                Eliminar
+                            </button>
+                        : null}
+                        <button type="submit" className="btn btn-primary pull-right">
+                            <i className='fa fa-pencil'></i>
+                            {this.state.server.id? 'Actualizar': 'Agregar Nuevo'}
+                        </button>
                     </div>
                 </form>
             </div>
         )
     }
 }
-//ServerEdit.propTypes = {
-//    theServer: PropTypes.object.isRequired
-//}
-export default ServerEdit
+ServerForm.propTypes = {
+    updateServer: PropTypes.func.isRequired,
+    addServer: PropTypes.func.isRequired,
+    deleteServer: PropTypes.func.isRequired,
+    theServer: PropTypes.object.isRequired
+}
+ServerForm.defaultProps = {
+    theServer: {
+        id: '',
+        name: '',
+        host: '',
+        port: 80,
+        project: ''
+    }
+}
+
+export default ServerForm

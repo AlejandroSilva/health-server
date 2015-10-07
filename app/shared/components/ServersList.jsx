@@ -11,15 +11,29 @@ class ServersList extends React.Component {
                     <small className="label pull-right bg-red">3</small>
                 </a>
                 <ul className="treeview-menu">
-                    <li key='0' ><Link to={'/servers'}>Todos</Link></li>
+                    <li key='0' ><Link to={'/servers'}>
+                        <i className="fa fa-circle-o text-yellow"></i>
+                        Todos
+                    </Link></li>
                     {this.props.servers.map((server, index)=> {
                         return (
                             <li key={server.id}>
-                                <Link to={`/server/${server.id}/data`}>{server.name}</Link>
+                                <Link to={`/server/${server.id}/data`}>
+                                    <i className="fa fa-circle-o"></i>
+                                    {server.name}
+                                </Link>
                             </li>
                         )
                      })}
-                    <li key='100' ><Link to={'/server/estaidnoexiste'}>server inexistente</Link></li>
+                    <li key='100' ><Link to={'/server/estaidnoexiste/data'}>
+                        <i className="fa fa-circle-o"></i>
+                        servidor asfasdf (no existe en BD)
+                    </Link></li>
+
+                    <li key='999' ><Link to={'/add'}>
+                        <i className="fa fa-circle-o text-aqua"></i>
+                        Agregar nuevo
+                    </Link></li>
                 </ul>
             </li>
         );
