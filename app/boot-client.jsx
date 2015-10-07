@@ -1,3 +1,6 @@
+// Environment
+import { __IS_DEVELOPMENT__ } from '../config/index.js'
+
 // React
 import React from 'react'
 import ReactDOM from 'react-dom';
@@ -39,6 +42,13 @@ class Root extends React.Component {
     //    //console.log(store.getState().servers.list)
     //}
     render() {
+        // si esta en desarrollo, mostrar el panel lateral de reduxDevTools
+        let devToolsPanel = __IS_DEVELOPMENT__?
+            <DebugPanel top right bottom>
+                <DevTools store={store} monitor={LogMonitor} />
+            </DebugPanel>
+            : null
+
         // las rutas (Route) pueden tener un metodo onEnter y onLeave
         return (
             <div>
@@ -58,9 +68,7 @@ class Root extends React.Component {
                         </Route>
                     </ReduxRouter>
                 </Provider>
-                <DebugPanel top right bottom>
-                    <DevTools store={store} monitor={LogMonitor} />
-                </DebugPanel>
+                { devToolsPanel }
             </div>
         );
     }

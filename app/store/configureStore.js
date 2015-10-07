@@ -53,8 +53,8 @@ import { combinedReducers, combinedInitialStates } from '../reducers/combinedRed
 import { __IS_DEVELOPMENT__ } from '../../config/index.js'
 
 export default function configureStore(initialState){
-    // si estamos en desarrollo, cargar devTools y hacer hotload de los reducers
     if(__IS_DEVELOPMENT__){
+        // la store de desarrollo, incluye 'devTools' y puede hacer hot-reload de los reducers
         let store = compose(
             applyMiddleware(thunk),
             reduxReactRouter({
@@ -74,12 +74,12 @@ export default function configureStore(initialState){
         return store
 
     }else{
+        // store de produccion
         let store = compose(
             applyMiddleware(thunk),
             reduxReactRouter({
                 createHistory
-            }),
-            devTools() //Only on development
+            })
         )(createStore)(combinedReducers, combinedInitialStates)
         return store
     }

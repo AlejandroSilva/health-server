@@ -4,9 +4,9 @@
   "description": "nodo heath para el envio de informacion del sistema",
   "main": "index.js",
   "scripts": {
-    "babel-dev":  "NODE_ENV=development babel-node health-dev-server.js --source-maps --loglevel error",
-    "babel-prod": "NODE_ENV=production  babel-node health-dev-server.js --source-maps",
-    "mocha-v1-server": "NODE_ENV=testing ./node_modules/.bin/mocha --compilers js:babel/register --timeout 8000 test/v1.js "
+    "babel-dev":  "NODE_ENV=development babel-node health-server.js --source-maps --loglevel error",
+    "babel-prod": "NODE_ENV=production  babel-node health-server.js --source-maps",
+    "test-v1": "NODE_ENV=testing ./node_modules/.bin/mocha --compilers js:babel/register --timeout 8000 test/v1.js "
   },
   "author": "toth.cl",
   "license": "ISC",
