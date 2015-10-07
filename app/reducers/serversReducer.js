@@ -1,5 +1,4 @@
 import * as serverAction from '../actions/serversActions.js';
-import Immutable from 'immutable'
 
 let defaultState = {
     list: []

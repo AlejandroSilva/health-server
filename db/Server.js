@@ -1,6 +1,6 @@
 import Thinky from 'thinky';
-import config from '../config/index.js';
-let thinky = Thinky(config.rethinkdb);
+import { dbConfig } from '../config/index.js';
+let thinky = Thinky(dbConfig);
 let type = thinky.type;
 let r = thinky.r;
 // https://thinky.io/documentation/schemas/

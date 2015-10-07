@@ -1,16 +1,16 @@
 import React from 'react'
 import {Navigation} from 'react-router'
-import * as Api from './../../client/v1.js'
+import * as Api from '../../apiClient/v1.js'
 import io from 'socket.io-client'
 let socket = io.connect('http://localhost:8888')
 
 // Modules
-import Cpu from './modules/Cpu.jsx'
+import Cpu from './modules/cpu.jsx'
 import DiscIO from './modules/DiscIO.jsx'
 import DiscMounted from './modules/DiscMounted.jsx'
 import NetIO from './modules/NetIO.jsx'
 import Ping from './modules/Ping.jsx'
-import Ram from './modules/Ram.jsx'
+import Ram from './modules/RAM.jsx'
 
 
 //export default class ServerInfo extends React.Component{

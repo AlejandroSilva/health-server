@@ -44,7 +44,7 @@ import { devTools } from 'redux-devtools'
 
 // Router
 import { ReduxRouter, reduxReactRouter } from 'redux-router'
-import createHistory from 'history/lib/createBrowserHistory'
+import createHistory from '../../node_modules/react-router/node_modules/history/lib/createBrowserHistory'
 
 // Reducers
 import { combinedReducers, combinedInitialStates } from '../reducers/combinedReducers.js'

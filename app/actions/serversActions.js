@@ -1,4 +1,4 @@
-import * as API from '../../client/v1.js'
+import * as API from '../apiClient/v1.js'
 export const GET_SERVERS = 'GET_SERVERS'
 export const ADD_SERVER    = 'ADD_SERVER'
 export const UPDATE_SERVER = 'UPDATE_SERVER'

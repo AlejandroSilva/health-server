@@ -1,15 +1,15 @@
 import Sar from './lib/SAR.js'
 import Dicom from './lib/Dicom.js'
 import app from './app/boot-server.js'
-import config from './config/index.js'
-import * as db from './db/db.js'
+import { appConfig } from './config/index.js'
+import * as db from './db/__db.js'
 import socket from 'socket.io'
 
 /**
  * Iniciar el server
  */
-let server = app.listen(config.app.port, function() {
-    console.log('Servicio iniciado en http://localhost:' + config.app.port + '/');
+let server = app.listen(appConfig.port, function() {
+    console.log('Servicio iniciado en http://localhost:' + appConfig.port + '/');
 });
 
 import schedule from 'node-schedule';

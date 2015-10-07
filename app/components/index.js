@@ -1,6 +1,8 @@
 import _App from './App.jsx'
 export const App = _App
 
+import ServersList from './ServersList.jsx'
+
 import _ServersView from './ServersView.jsx'
 export const ServersView = _ServersView
 
@@ -39,3 +41,4 @@ export const ErrorPage = _ErrorPage
 import _FormGroup from './ui/FormGroup.jsx'
 export const FormGroup = _FormGroup
 
+export { ServersList }

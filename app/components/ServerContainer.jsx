@@ -8,12 +8,12 @@ import { Link } from 'react-router'
 import * as ServersActions from '../actions/serversActions.js'
 
 // Modules
-import Cpu from './modules/Cpu.jsx'
+import Cpu from './modules/cpu.jsx'
 import DiscIO from './modules/DiscIO.jsx'
 import DiscMounted from './modules/DiscMounted.jsx'
 import NetIO from './modules/NetIO.jsx'
 import Ping from './modules/Ping.jsx'
-import Ram from './modules/Ram.jsx'
+import Ram from './modules/RAM.jsx'
 import { ErrorPage } from './index.js'
 
 @connect(

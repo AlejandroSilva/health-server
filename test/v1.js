@@ -1,23 +1,21 @@
+// Chai, Mocha, supertest
 import assert from 'assert';
 import request from 'supertest';
 import chai from 'chai';
 let expect = chai.expect;
 
 import app from '../app/boot-server.js';
-import * as db from '../db/db.js';
 
 describe('API v1', function () {
+    //before(function () {
+    //    db.setup()
+    //        .then( (msg)=> {
+    //            let server = app.listen(appConfig.port, function () {
+    //                console.log(`Servicio iniciado en http://localhost:${appConfig.port}/`);
+    //            });
+    //        });
+    //});
 
-    before(function () {
-        db.setup()
-            .then( (msg)=> {
-                let server = app.listen(config.app.port, function () {
-                    console.log(`Servicio iniciado en http://localhost:${config.app.port}/`);
-                });
-            });
-    });
-
-    
     let validServer = {
         name: 'FART pacs',
         proyecto: 'FART',

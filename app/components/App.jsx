@@ -1,4 +1,4 @@
-import config from '../../../config/index.js'
+import { appConfig } from '../../config/index.js'
 
 // React, Redux, Router
 import React from 'react'
@@ -12,10 +12,10 @@ import * as ServersActions from '../actions/serversActions.js'
 
 // Socket IO
 import io from 'socket.io-client'
-let socket = io.connect(`http://localhost:${config.app.port}`)
+let socket = io.connect(`http://localhost:${appConfig.port}`)
 
 // Components
-import ServersList from './ServersList.jsx'
+import { ServersList } from './index.js'
 
 @connect(
     (state)=> ({

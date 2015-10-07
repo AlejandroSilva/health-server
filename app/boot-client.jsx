@@ -20,10 +20,10 @@ import {
     AddServer,
     ServerEvents,
     NotFound
-} from './shared/components/index.js'
+} from './components/index.js'
 
 // Store
-import configureStore from './shared/store/configureStore.js'
+import configureStore from './store/configureStore.js'
 let store = configureStore({})
 
 class Root extends React.Component {

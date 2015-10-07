@@ -7,8 +7,8 @@ import { ReduxRouter, routerStateReducer, reduxReactRouter } from 'redux-router'
 import Immutable from 'immutable'
 
 //## ACTIONS
-import * as CounterActions from './shared/actions/counterActions.js'
-import * as ServersActions from './shared/actions/serversActions.js'
+import * as CounterActions from './actions/counterActions.js'
+import * as ServersActions from './actions/serversActions.js'
 @connect(
     state => ({
         routerState: state.router,
@@ -137,7 +137,7 @@ import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 // const initialState = window.__INITIAL_STATE__ || 666
 // const store = configureStore(initialState)
 import createHistory from 'history/lib/createBrowserHistory';
-import combinedReducer from './shared/reducers/combinedReducers.js';
+import combinedReducer from 'reducers/combinedReducers.js';
 import thunk from 'redux-thunk';
 let store = compose(
     applyMiddleware(thunk),

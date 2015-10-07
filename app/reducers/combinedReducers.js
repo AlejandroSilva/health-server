@@ -1,18 +1,21 @@
+// Redux, Redux-router
 import { combineReducers } from 'redux'
-import counterReducer from './counterReducer'
-import { serversReducer, serversDefaultState } from './serversReducer.js'
 import { routerStateReducer } from 'redux-router'
 
-const rootReducer = combineReducers({
+// Reducers
+import counterReducer from './counterReducer'
+import { serversReducer, serversDefaultState } from './serversReducer.js'
+
+
+const combinedReducers = combineReducers({
     counter: counterReducer,
     servers: serversReducer,
     router: routerStateReducer
 });
 
-const rootStates = {
+const combinedInitialStates = {
     counter: 33,
     servers: serversDefaultState
 }
 
-export let combinedReducers = rootReducer
-export let combinedInitialStates = rootStates
+export { combinedReducers , combinedInitialStates }
