@@ -49,24 +49,38 @@ import createHistory from '../../node_modules/react-router/node_modules/history/
 // Reducers
 import { combinedReducers, combinedInitialStates } from '../reducers/combinedReducers.js'
 
+// Config
+import { __IS_DEVELOPMENT__ } from '../../config/index.js'
+
 export default function configureStore(initialState){
-    let store = compose(
-        applyMiddleware(thunk),
-        reduxReactRouter({
-            createHistory
-        }),
-        // Todo: Only on development
-        devTools()
-    )(createStore)(combinedReducers, combinedInitialStates)
+    // si estamos en desarrollo, cargar devTools y hacer hotload de los reducers
+    if(__IS_DEVELOPMENT__){
+        let store = compose(
+            applyMiddleware(thunk),
+            reduxReactRouter({
+                createHistory
+            }),
+            devTools() //Only on development
+        )(createStore)(combinedReducers, combinedInitialStates)
 
-    if (module.hot) {
-        console.log("actualizando reducer")
-        // Enable Webpack hot module replacement for reducers
-        module.hot.accept('../reducers/combinedReducers.js', () => {
-            const nextRootReducer = require('../reducers/combinedReducers.js').combinedReducers;
-            store.replaceReducer(nextRootReducer);
-        });
+        if (module.hot) {
+            console.log("actualizando reducer")
+            // Enable Webpack hot module replacement for reducers
+            module.hot.accept('../reducers/combinedReducers.js', () => {
+                const nextRootReducer = require('../reducers/combinedReducers.js').combinedReducers;
+                store.replaceReducer(nextRootReducer);
+            });
+        }
+        return store
+
+    }else{
+        let store = compose(
+            applyMiddleware(thunk),
+            reduxReactRouter({
+                createHistory
+            }),
+            devTools() //Only on development
+        )(createStore)(combinedReducers, combinedInitialStates)
+        return store
     }
-
-    return store
 }
