@@ -12,7 +12,7 @@ describe('API v1', function () {
         db.setup()
             .then( (msg)=> {
                 let server = app.listen(config.app.port, function () {
-                    console.log('Servicio iniciado en http://localhost:' + config.app.port + '/');
+                    console.log(`Servicio iniciado en http://localhost:${config.app.port}/`);
                 });
             });
     });

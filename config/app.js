@@ -7,5 +7,5 @@ export let production = {
 };
 
 export let test = {
-    port: 3000
+    port: 3003
 };

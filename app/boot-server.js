@@ -26,7 +26,7 @@ app.use(express.static('public'));
 /**
  * Routes
  */
-import v1 from './server/v1';
+import v1 from '../api/v1/index.js';
 app.use('/v1/', v1);
 
 // React + Redux libs
@@ -78,7 +78,7 @@ app.get('/*', function (req, res) {
 /*
  * Middlewares
  */
-import errorsHandler  from './middlewares/errorsHandler.js';
+import errorsHandler  from '../api/middlewares/errorsHandler.js';
 app.use(errorsHandler);
 
 export default app;

@@ -19,8 +19,6 @@ axios.interceptors.response.use((response)=>{
     }
 })
 
-// ## Peticiones, retornar promesas
-
 export let server = {
     getAll: ()=>{
         return axios.get(`/v1/server`)
@@ -44,37 +42,4 @@ export let server = {
             `/v1/server/${serverID}`
         )
     }
-/*
-    get: (serverId)=>{
-        return new Promise((resolve, reject)=>{
-            request
-                .get(`/v1/server/${serverId}`)
-                .set('Content-Type', 'application/json')
-                .set('token', '12345')
-                .end((err, res)=>{
-                    if(err){
-                        reject(err.message)
-                    }else{
-                        resolve(res.body)
-                    }
-                })
-        })
-    },
-    delete: (serverId)=>{
-        return new Promise((resolve, reject)=>{
-            request
-                .del(`/v1/server/${serverId}`)
-                .set('Content-Type', 'application/json')
-                .set('token', '12345')
-                .send(server)
-                .end((err, res)=>{
-                    if(err){
-                        reject(err.message)
-                    }else{
-                        resolve(res)
-                    }
-                })
-        })
-    }
-    */
 }

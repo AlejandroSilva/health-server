@@ -1,9 +1,9 @@
-import Thinky from 'thinky';
-import config from '../config/index.js';
-import Server from './Server.js';
-let thinky = Thinky(config.rethinkdb);
-let type = thinky.type;
-let r = thinky.r;
+import Thinky from 'thinky'
+import config from '../config/index.js'
+import Server from './Server.js'
+let thinky = Thinky(config.rethinkdb)
+let type = thinky.type
+let r = thinky.r
 
 // https://thinky.io/documentation/schemas/
 
@@ -18,9 +18,9 @@ let Data = thinky.createModel('Data', {
     enforce_extra: 'remove',    // elimina los campos que no estan en el modelo
     enforce_type: 'strict',     // los campos deben ser del mismo tipo que esta declarado
     validator: function(){}
-});
-Data.ensureIndex('id');
+})
+Data.ensureIndex('id')
 
-Data.belongsTo(Server, 'server', 'idServer', 'id');
+Data.belongsTo(Server, 'server', 'idServer', 'id')
 
-export default Data;
+export default Data

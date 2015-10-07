@@ -4,7 +4,7 @@ import Data from '../db/Data.js';
 
 function fetchData(server){
     return new Promise((resolve, reject)=>{
-        axios.get(`http://${server.host}:${server.port}/v1/info`, {timeout: 15000})
+        axios.get(`http://${server.host}:${server.port}/v1`, {timeout: 15000})
             .then((response)=> {
                 if(response.status===200){
                     // resolve solo permite 1 argumento, entonces lo agrupamos

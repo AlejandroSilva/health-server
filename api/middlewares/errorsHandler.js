@@ -1,4 +1,3 @@
-
 function rethinkErrors(err, req, res, next){
     next(err);
 }
