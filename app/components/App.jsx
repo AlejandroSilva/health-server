@@ -111,7 +111,7 @@ class App extends React.Component {
                     </aside>
 
                     {/* Cuerpo de la pagina */}
-                    <div className="content-wrapper" style={{minHeight: 901+'px', maxWidth: 800+'px'}}>
+                    <div className="content-wrapper" style={{minHeight: 1000+'px', maxWidth: 1000+'px'}}>
                         {this.props.children || "Seleccione un servidor desde el menu lateral"}
                     </div>
                 </div>

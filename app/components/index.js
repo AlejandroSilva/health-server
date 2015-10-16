@@ -1,44 +1,37 @@
-import _App from './App.jsx'
-export const App = _App
-
+import App from './App.jsx'
 import ServersList from './ServersList.jsx'
-
-import _ServersView from './ServersView.jsx'
-export const ServersView = _ServersView
-
-import _ServerContainer from './ServerContainer.jsx'
-export const ServerContainer = _ServerContainer
-
-import _ServerData from './ServerData.jsx'
-export const ServerData = _ServerData
-
-import _ServerEvents from './ServerEvents.jsx'
-export const ServerEvents = _ServerEvents
+import ServersView from './ServersView.jsx'
+import ServerContainer from './ServerContainer.jsx'
+import ServerData from './ServerData.jsx'
+import ServerDataAsRow from './ServerDataAsRow.jsx'
+import ServerEvents from './ServerEvents.jsx'
 
 // Creacion y modificacion de un servidor:
-import _ServerForm from './ui/ServerForm.jsx'
-export const ServerForm = _ServerForm
-
-import _AddServer from './AddServer.jsx'
-export const AddServer = _AddServer
-
-import _EditServer from './EditServer.jsx'
-export const EditServer = _EditServer
-
-import _NotFound from './NotFound.jsx'
-export const NotFound = _NotFound
-
-
+import ServerForm from './ui/ServerForm.jsx'
+import AddServer from './AddServer.jsx'
+import EditServer from './EditServer.jsx'
+import NotFound from './NotFound.jsx'
 
 // componentes de UI, estos son reutilizables y pueden ser incluido incluso en otros proyectos
+import Alert from './ui/Alert.jsx'
+import ErrorPage from './ui/ErrorPage.jsx'
+import FormGroup from './ui/FormGroup.jsx'
 
-import _Alert from './ui/Alert.jsx'
-export const Alert = _Alert
-
-import _ErrorPage from './ui/ErrorPage.jsx'
-export const ErrorPage = _ErrorPage
-
-import _FormGroup from './ui/FormGroup.jsx'
-export const FormGroup = _FormGroup
-
-export { ServersList }
+export {
+    App,
+    ServersList,
+    ServersView,
+    ServerContainer,
+    ServerData,
+    ServerDataAsRow,
+    ServerEvents,
+    // Creacion y modificacion de un servidor
+    ServerForm,
+    AddServer,
+    EditServer,
+    NotFound,
+    // Componentes de UI
+    Alert,
+    ErrorPage,
+    FormGroup
+}

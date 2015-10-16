@@ -1,5 +1,5 @@
 // React, Redux
-import React from 'react'
+import React, { propTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
@@ -7,56 +7,36 @@ import { connect } from 'react-redux'
 import * as CounterActions from '../actions/counterActions.js'
 import * as ServersActions from '../actions/serversActions.js'
 
+// Modules
+import { ServerDataAsRow } from './index.js'
+
 @connect(
-        state => ({
+    (state)=> ({
         routerState: state.router,
         servers: state.servers,
-        allState: state
     }),
     (dispatch)=>{
         // http://rackt.github.io/redux/docs/api/bindActionCreators.html
         return bindActionCreators(
-            //CounterActions: CounterActions,
-            //ServersActions: ServersActions
-            Object.assign({}, CounterActions, ServersActions),
+            ServersActions,
             dispatch
         )
     }
 )
 class ServersView extends React.Component {
-    static propTypes = {
-        children: React.PropTypes.node,
-        servers: React.PropTypes.object
-    }
-    metodo(){
-        let { servers_getAll } = this.props
-        // lanza un action asincrono, tiene un callback para cambiar el estado de este componente
-        servers_getAll((err)=>{
-            if(err){
-                console.log("error con los serves:", err)
-            }else{
-                console.log("peticion correcta")
-            }
-        })
-    }
     render() {
-        //let { store } = this.context
-        //let servers = store.getState().servers
-
         return (
-            <div>
-                <section className="content-header">
-                    <h2>Servers view</h2>
-                </section>
-                <section className="content">
-                    {/*servers.list.map((server, index)=> {
-                     return <p key={index}><b>{server}</b></p>
-                     })*/}
-                    <button onClick={this.metodo.bind(this)}>ServersView.metodo</button>
-                    {this.props.children}
-                </section>
-            </div>
+            <section className="content">
+                {this.props.servers.list.map((server, index)=> {
+                    return <ServerDataAsRow key={index} server={server}/>
+                 })}
+                {this.props.children}
+            </section>
         );
     }
+}
+ServersView.propTypes = {
+    children: React.PropTypes.node
+    //servers: React.PropTypes.object.isRequired
 }
 export default ServersView

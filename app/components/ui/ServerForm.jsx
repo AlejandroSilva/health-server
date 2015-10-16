@@ -99,7 +99,7 @@ class ServerForm extends React.Component{
                             <input type="number" className="form-control"
                                    defaultValue={this.state.server.port}
                                    onChange={this.handleChange.bind(this, 'port')}
-                                   min="0" max="9999" required placeholder="Port. Ej. 8081"
+                                   placeholder="Port. Ej. 8081"
                                 />
                         </FormGroup>
                         <FormGroup label="Proyecto">
@@ -143,7 +143,7 @@ ServerForm.defaultProps = {
         id: '',
         name: '',
         host: '',
-        port: 80,
+        port: 8008,
         project: ''
     }
 }

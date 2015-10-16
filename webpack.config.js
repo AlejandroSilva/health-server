@@ -8,6 +8,7 @@ module.exports = {
         // "only" prevents reload on syntax errors
         'webpack/hot/only-dev-server',
         // Appʼs entry point
+
         './app/boot-client.jsx'
     ],
     output: {
