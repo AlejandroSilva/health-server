@@ -4,11 +4,12 @@ import React, { PropTypes } from 'react'
 export default class Ping extends React.Component{
     render(){
         const data = this.props.data
-        const total = data.min+data.avg+data.max
-        let min, avg, max
-        min = total>100? data.min*100/total: data.min
-        avg = total>100? data.avg*100/total: data.avg
-        max = total>100? data.max*100/total: data.max
+        const perMin = Math.round(data.min*100/data.max)
+        const perAvg = Math.round(data.avg*100/data.max)
+        //const perMax = 100
+        const minWidth = perMin
+        const avgWidth = perAvg-perMin
+        const maxWidth = 100-perAvg
 
         if(this.props.isRow===true){
             return (
@@ -23,13 +24,13 @@ export default class Ping extends React.Component{
                             <small className='pull-right' style={{margin: 0}}>{data.successfullAttemps}/{data.attempts} correctos</small>
                         </p>
                         <div className="progress" style={{margin: 0}}>
-                            <div className="progress-bar progress-bar-success" style={{width: min+'%'}}>
+                            <div className="progress-bar progress-bar-success" style={{width: minWidth+'%'}}>
                                 {data.min}
                             </div>
-                            <div className="progress-bar progress-bar-warning progress-bar-striped" style={{width: avg+'%'}}>
+                            <div className="progress-bar progress-bar-warning progress-bar-striped" style={{width: avgWidth+'%'}}>
                                 {data.avg}
                             </div>
-                            <div className="progress-bar progress-bar-danger" style={{width: max+'%'}}>
+                            <div className="progress-bar progress-bar-danger" style={{width: maxWidth+'%'}}>
                                 {data.max}
                             </div>
                         </div>

@@ -6,7 +6,8 @@ import { Link } from 'react-router'
 
 // Modules
 import {
-    Cpu,
+    CPU,
+    DICOM,
     DiscIO,
     DiscMounted,
     NetIO,
@@ -40,14 +41,14 @@ class ServerDataAsRow extends React.Component {
                 <div className="col-md-3">
                     <Ping data={currentData.pingNational} isRow={true} title='Nacional'/>
                     <Ping data={currentData.pingInternational} isRow={true} title='Internacional'/>
-                    <NetIO data={currentData.netIO} isRow={true}/>
                 </div>
                 <div className="col-md-3">
                     <Memory data={currentData.mem} isRow={true}/>
-                    <Cpu data={currentData.cpu} isRow={true}/>
+                    <CPU data={currentData.cpu} isRow={true}/>
                 </div>
                 <div className="col-md-3">
-                    <p>DICOM</p>
+                    <DICOM data={{}} isRow={true}/>
+                    <NetIO data={currentData.netIO} isRow={true}/>
                     <p>DISC IO?</p>
                 </div>
             </div>

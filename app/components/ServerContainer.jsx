@@ -8,7 +8,7 @@ import { Link } from 'react-router'
 import * as ServersActions from '../actions/serversActions.js'
 
 // Modules
-import Cpu from './modules/cpu.jsx'
+import Cpu from './modules/CPU.jsx'
 import DiscIO from './modules/DiscIO.jsx'
 import DiscMounted from './modules/DiscMounted.jsx'
 import NetIO from './modules/NetIO.jsx'

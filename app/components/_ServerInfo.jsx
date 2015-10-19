@@ -5,7 +5,7 @@ import io from 'socket.io-client'
 let socket = io.connect('http://localhost:8888')
 
 // Modules
-import Cpu from './modules/cpu.jsx'
+import Cpu from './modules/CPU.jsx'
 import DiscIO from './modules/DiscIO.jsx'
 import DiscMounted from './modules/DiscMounted.jsx'
 import NetIO from './modules/NetIO.jsx'

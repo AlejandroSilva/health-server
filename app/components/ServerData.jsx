@@ -10,7 +10,7 @@ import * as ServersActions from '../actions/serversActions.js'
 // Modules
 // Modules
 import {
-    Cpu,
+    CPU,
     DiscIO,
     DiscMounted,
     NetIO,
@@ -30,7 +30,7 @@ class ServerData extends React.Component {
                 Object.getOwnPropertyNames(currentData).map((module)=> {
                     {
                         if (module === 'cpu') {
-                            return <Cpu key="cpu" data={currentData[module]}/>
+                            return <CPU key="cpu" data={currentData[module]}/>
                         } else if (module === 'discIO') {
                             return <DiscIO key="discIO" data={currentData[module]}/>
                         } else if (module === 'discMounted') {
