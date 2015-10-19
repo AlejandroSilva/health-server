@@ -22,7 +22,7 @@ class DiscMounted extends React.Component{
     }
     render(){
         const width = 200
-        const height = 100
+        const height = 90
         const columnsCount = this.props.data.length
         const columnWidth = width/columnsCount
 

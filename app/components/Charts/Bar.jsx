@@ -20,7 +20,7 @@ class Bar extends React.Component{
     render(){
         const {
             x, y, width:w, height:h,
-            value, key, color
+            value, color
         } = this.props
         return(
             <svg width={w} height={h} x={this.props.x} y={this.props.y}
@@ -44,5 +44,16 @@ class Bar extends React.Component{
             </svg>
         )
     }
+}
+Bar.propTypes = {
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
+    color: PropTypes.string.isRequired
+}
+Bar.defaultProps = {
+    color: COLORS.green
 }
 export default  Bar
