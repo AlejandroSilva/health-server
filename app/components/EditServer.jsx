@@ -8,7 +8,8 @@ import { connect } from 'react-redux'
 import * as ServersActions from '../actions/serversActions.js'
 
 // Components
-import { ServerForm } from './index.js'
+import { ServerForm } from './ui/index.js'
+//import ServerForm from './ui/ServerForm.jsx'
 
 @connect(
     (state)=> ({
@@ -22,7 +23,7 @@ import { ServerForm } from './index.js'
         )
     }
 )
-class ServerEdit extends React.Component {
+class EditServer extends React.Component {
     render() {
         return (
             <div className="box box-info">
@@ -41,7 +42,7 @@ class ServerEdit extends React.Component {
         )
     }
 }
-//ServerEdit.propTypes = {
+//EditServer.propTypes = {
 //    theServer: PropTypes.object.isRequired
 //}
-export default ServerEdit
+export default EditServer

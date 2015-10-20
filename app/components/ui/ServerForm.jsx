@@ -1,9 +1,9 @@
 // React, Redux, Router
 import React, { PropTypes} from 'react'
 
-
 // Components
-import { Alert, FormGroup } from '../index.js'
+import Alert from './Alert.jsx'
+import FormGroup from './FormGroup.jsx'
 
 class ServerForm extends React.Component{
     constructor(props){
@@ -55,7 +55,7 @@ class ServerForm extends React.Component{
             }
         })
     }
-    delete(){
+    deleteServer(){
         this.props.deleteServer(this.state.server.id, (errorMessage, resp)=>{
             if(errorMessage){
                 this.setState({error: errorMessage})
@@ -117,7 +117,7 @@ class ServerForm extends React.Component{
 
                     <div className="box-footer">
                         { this.state.server.id!==''?
-                            <button type="button" className="btn btn-danger" onClick={this.delete.bind(this)}>
+                            <button type="button" className="btn btn-danger" onClick={this.deleteServer.bind(this)}>
                                 <i className='fa fa-warning'></i>
                                 Eliminar
                             </button>

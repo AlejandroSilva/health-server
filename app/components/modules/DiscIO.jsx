@@ -1,9 +1,11 @@
 import React from 'react'
 
+// Components
+import {
+    Box, BoxHeader, BoxBody
+} from '../ui/index.js'
+
 export default class DiscIO extends React.Component{
-    constructor(){
-        super()
-    }
     render(){
         return (
             <div className="info-box bg-green">

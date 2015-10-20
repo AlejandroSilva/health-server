@@ -1,6 +1,11 @@
 // React
 import React, { PropTypes } from 'react'
 
+// Components
+import {
+    Box, BoxHeader, BoxBody
+} from '../ui/index.js'
+
 class DiscIO extends React.Component{
     render(){
         if(this.props.isRow===true){
@@ -8,12 +13,12 @@ class DiscIO extends React.Component{
             const percentFree = Math.round(this.props.data.kbfree*100/this.props.data.kbtotal)
             const percentUsed = 100-percentFree
             return (
-                <div className="box box-solid">
-                    <div className="box-header with-border" style={{paddingTop: 0, paddingBottom: 0}}>
+                <Box>
+                    <BoxHeader>
                         <h4 className="box-title">Memoria</h4>
                         <p className='pull-right' style={{margin: 0}}>Total: {this.props.data.used}</p>
-                    </div>
-                    <div className="box-body" style={{paddingTop: '0px', paddingBottom: '3px'}}>
+                    </BoxHeader>
+                    <BoxBody>
                         <p style={{margin: 0}}>
                             Usado: <b>{this.props.data.used}</b>    Libre: <b>{this.props.data.free}</b>
                         </p>
@@ -25,8 +30,8 @@ class DiscIO extends React.Component{
                                 {percentFree}%
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </BoxBody>
+                </Box>
             )
         }
         else{

@@ -8,13 +8,17 @@ import { Link } from 'react-router'
 import * as ServersActions from '../actions/serversActions.js'
 
 // Modules
-import Cpu from './modules/CPU.jsx'
-import DiscIO from './modules/DiscIO.jsx'
-import DiscMounted from './modules/DiscMounted.jsx'
-import NetIO from './modules/NetIO.jsx'
-import Ping from './modules/Ping.jsx'
-import Ram from './modules/Memory.jsx'
-import { ErrorPage } from './index.js'
+import {
+    Cpu,
+    DiscIO,
+    DiscMounted,
+    NetIO,
+    Ping,
+    Ram
+} from './modules/index.js'
+import {
+    ErrorPage
+} from './ui/index.js'
 
 @connect(
     (state)=> ({

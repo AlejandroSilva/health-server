@@ -1,7 +1,14 @@
 // React
 import React, { PropTypes } from 'react'
+
 // Components
-import { COLORS, Bar } from '../Charts'
+import {
+    Box, BoxHeader, BoxBody
+} from '../ui/index.js'
+import {
+    COLORS, Bar
+} from '../Charts'
+
 
 class DiscMounted extends React.Component{
     constructor(props){
@@ -28,12 +35,12 @@ class DiscMounted extends React.Component{
 
         if(this.props.isRow===true){
             return (
-                <div className="box box-solid">
-                    <div className="box-header with-border" style={{paddingTop: 0, paddingBottom: 0}}>
+                <Box>
+                    <BoxHeader>
                         <i className="fa fa-warning"></i>
                         <h3 className="box-title">{this.props.boxHeader}</h3>
-                    </div>
-                    <div className="box-body" style={{paddingTop: '0px', paddingBottom: '3px'}}>
+                    </BoxHeader>
+                    <BoxBody>
                         <svg width={width} height={height}>
                             {this.props.data.map((disc, columnIndex)=>{
                                 const barColor = disc.percentUsed>80? (disc.percentUsed>90? COLORS.red:COLORS.orange): COLORS.green
@@ -60,8 +67,8 @@ class DiscMounted extends React.Component{
                             </div>
                         : <div></div>}
 
-                    </div>
-                </div>
+                    </BoxBody>
+                </Box>
             )
         }
         else{

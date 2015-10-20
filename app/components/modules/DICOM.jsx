@@ -1,20 +1,25 @@
 import React, { PropTypes } from 'react'
 
+// Components
+import {
+    Box, BoxHeader, BoxBody
+} from '../ui/index.js'
+
 class DICOM extends React.Component{
     render(){
         if(this.props.isRow===true){
             const barColor = this.props.data.percentIdle>80? (this.props.data.percentIdle>90? 'progress-bar-danger':'progress-bar-warning'): 'progress-bar-success'
             return (
-                <div className="box box-solid">
-                    <div className="box-header with-border" style={{paddingTop: 0, paddingBottom: 0}}>
+                <Box>
+                    <BoxHeader>
                         <h3 className="box-title">DICOM Echo</h3>
-                    </div>
-                    <div className="box-body" style={{paddingTop: '0px', paddingBottom: '3px'}}>
+                    </BoxHeader>
+                    <BoxBody>
                         <p style={{margin: 0}}>Repuesta:
                             <span className='label label-success'>success</span>
                         </p>
-                    </div>
-                </div>
+                    </BoxBody>
+                </Box>
             )
         }
         else{

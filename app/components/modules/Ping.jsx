@@ -1,6 +1,11 @@
 // React
 import React, { PropTypes } from 'react'
 
+// Components
+import {
+    Box, BoxHeader, BoxBody
+} from '../ui/index.js'
+
 export default class Ping extends React.Component{
     render(){
         const data = this.props.data
@@ -13,12 +18,12 @@ export default class Ping extends React.Component{
 
         if(this.props.isRow===true){
             return (
-                <div className="box box-solid">
-                    <div className="box-header with-border" style={{paddingTop: 0, paddingBottom: 0}}>
+                <Box>
+                    <BoxHeader>
                         <h4 className="box-title">{this.props.title}</h4>
                         <p className='pull-right' style={{margin: 0}}>{data.min}/{data.avg}/{data.max}</p>
-                    </div>
-                    <div className="box-body" style={{paddingTop: '0px', paddingBottom: '3px'}}>
+                    </BoxHeader>
+                    <BoxBody>
                         <p style={{margin: 0}}>
                             <b>{data.address}</b>
                             <small className='pull-right' style={{margin: 0}}>{data.successfullAttemps}/{data.attempts} correctos</small>
@@ -34,8 +39,8 @@ export default class Ping extends React.Component{
                                 {data.max}
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </BoxBody>
+                </Box>
             )
         }
         else {

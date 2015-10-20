@@ -8,7 +8,9 @@ import { connect } from 'react-redux'
 import * as ServersActions from '../actions/serversActions.js'
 
 // Components
-import { ServerForm } from './index.js'
+import {
+    ServerForm
+} from './ui/index.js'
 
 @connect(
     (state)=> ({

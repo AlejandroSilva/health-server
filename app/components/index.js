@@ -7,15 +7,9 @@ import ServerDataAsRow from './ServerDataAsRow.jsx'
 import ServerEvents from './ServerEvents.jsx'
 
 // Creacion y modificacion de un servidor:
-import ServerForm from './ui/ServerForm.jsx'
 import AddServer from './AddServer.jsx'
 import EditServer from './EditServer.jsx'
 import NotFound from './NotFound.jsx'
-
-// componentes de UI, estos son reutilizables y pueden ser incluido incluso en otros proyectos
-import Alert from './ui/Alert.jsx'
-import ErrorPage from './ui/ErrorPage.jsx'
-import FormGroup from './ui/FormGroup.jsx'
 
 export {
     App,
@@ -26,12 +20,7 @@ export {
     ServerDataAsRow,
     ServerEvents,
     // Creacion y modificacion de un servidor
-    ServerForm,
     AddServer,
     EditServer,
     NotFound,
-    // Componentes de UI
-    Alert,
-    ErrorPage,
-    FormGroup
 }

@@ -1,5 +1,5 @@
 // React, Redux, Router
-import React, { PropTypes} from 'react'
+import React, { PropTypes } from 'react'
 
 class ErrorMessage extends React.Component{
     render() {

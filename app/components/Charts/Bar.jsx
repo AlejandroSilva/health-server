@@ -54,6 +54,7 @@ Bar.propTypes = {
     color: PropTypes.string.isRequired
 }
 Bar.defaultProps = {
-    color: COLORS.green
+    color: '#00a65a'
+    //color: COLORS.green
 }
 export default  Bar

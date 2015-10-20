@@ -1,18 +1,20 @@
 import React, { PropTypes } from 'react'
 
+// Components
+import {
+    Box, BoxHeader, BoxBody
+} from '../ui/index.js'
+
 class NetIO extends React.Component{
-    constructor(){
-        super()
-    }
     render(){
         if(this.props.isRow){
             return (
-                <div className="box box-solid">
-                    <div className="box-header with-border" style={{paddingTop: 0, paddingBottom: 0}}>
+                <Box>
+                    <BoxHeader>
                         <h4 className="box-title">Intrerfaces</h4>
                         <p className='pull-right' style={{margin: 0}}>asd</p>
-                    </div>
-                    <div className="box-body" style={{paddingTop: '0px', paddingBottom: '3px'}}>
+                    </BoxHeader>
+                    <BoxBody>
                         <table className='table table-condensed'>
                             <thead><tr>
                                 <th style={{paddingTop: 0, paddingBottom: 0}}>Int</th>
@@ -29,8 +31,8 @@ class NetIO extends React.Component{
                                 )}
                             </tbody>
                         </table>
-                    </div>
-                </div>
+                    </BoxBody>
+                </Box>
             )
         }else{
             return (
