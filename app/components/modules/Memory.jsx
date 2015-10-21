@@ -20,7 +20,7 @@ class DiscIO extends React.Component{
                     </BoxHeader>
                     <BoxBody>
                         <p style={{margin: 0}}>
-                            Usado: <b>{this.props.data.used}</b>    Libre: <b>{this.props.data.free}</b>
+                            Reservada: <b>{this.props.data.used}</b>    Libre: <b>{this.props.data.free}</b>
                         </p>
                         <div className="progress" style={{margin: 0}}>
                             <div className="progress-bar progress-bar-warning progress-bar-striped" style={{width: percentUsed+'%'}}>
