@@ -73,7 +73,7 @@ if(__IS_DEVELOPMENT__){
         proxy: {
             "*": `http://localhost:${appConfig.port}/`
         }
-    }).listen(3001, 'localhost', (err, result)=>{
+    }).listen(3001, '0.0.0.0', (err, result)=>{
             if (err) {
                 console.log(err);
             }else{
