@@ -1,6 +1,9 @@
+// fetch remote data
 import axios from 'axios';
+// Models
 import Server from '../db/Server.js';
 import Data from '../db/Data.js';
+import Incident from '../db/Incident.js';
 
 function fetchData(server){
     return new Promise((resolve, reject)=>{
@@ -11,7 +14,15 @@ function fetchData(server){
                     resolve([server, response.data]);
                 }else{
                     // el servidor respondio, pero no un 'OK'
-                    reject(`Peticion correcta, pero '${server.name}' (${server.host}:${server.port}) respondio: ${response.status}`);
+                    reject({
+                        title: 'respuesta inesperada',
+                        message: `Peticion correcta, pero '${server.name}' (${server.host}:${server.port}) respondio: ${response.status}`,
+                        component: 'CLIENT',
+                        extra: {
+                            status: response.status,
+                            data: response.data
+                        }
+                    });
                 }
             })
             .catch((response)=>{
@@ -22,16 +33,28 @@ function fetchData(server){
                     errorMessage = `statusCode=${response.status}`
                 }
                 // request no pudo hacer una peticion al servidor
-                reject(`Error al obtener datos de '${server.name}' (${server.host}:${server.port}): ${errorMessage}`);
+                reject({
+                    title: 'Error de conexion',
+                    message: `No se pueden obtener datos de '${server.name}' (${server.host}:${server.port}): ${errorMessage}`,
+                    component: 'CLIENT',
+                    extra: {
+                        errorMessage
+                    }
+                });
             })
     })
 }
 
 function updateServer([server, serverData]){
     return new Promise((resolve, reject)=>{
-        server.currentData = serverData;
-        server.save();
-        resolve([server, serverData])
+        // se debe volver a recuperar los datos del server antes de actualizarlo, para evitar 'race conditions'
+        Server.get(server.id).run()
+            .then(server=>{
+                server.currentData = serverData;
+                server.save();
+                resolve([server, serverData])
+            })
+            .catch(reject)
     });
 }
 
@@ -46,31 +69,44 @@ function saveData([server, serverData]){
             // se guardan individualmente cada uno de los campos de la respuesta
             let componentData = serverData[component];
             let data = new Data({
+                idServer: server.id,    // referencia al modelo Server
                 component: component,
                 content: componentData
             });
-            // referencia al modelo Server
-            data.idServer = server.id;
             // guardamos la promesa
             //let saveDataPromise = data.saveAll({server: false});
-            let saveDataPromise = data.save(({server: true}));
+            let saveDataPromise = data.save({server: true});
             componentPromises.push(saveDataPromise);
         }
         // esperamos a que se completen todas bien
         Promise.all(componentPromises)
-            .then((results)=>{
-                resolve(results);
+            .then((savedData)=>{
+                resolve([server, savedData]);
             })
             .catch((err)=> {
-                reject(`Error guardando datos de '${server.name}' (${server.host}): ${err.message}`);
+                reject({
+                    title: 'Error guardando datos',
+                    message: `No se pueden guardar datos de '${server.name}' (${server.host}): ${err.message}`,
+                    component: 'DB',
+                    extra: {
+                        error: err.message
+                    }
+                });
             })
     });
+}
+
+function checkForAlerts([server, savedData]){
+    return new Promise((resolve, reject)=>{
+        //console.log('se revisaron las alertas....')
+        resolve(savedData);
+    })
 }
 
 export default function(){
     Server.run()
         .then((servers)=>{
-            console.log(`Buscando la informacion de ${servers.length} servidores`);
+            console.log(`[Job] Buscando la informacion de ${servers.length} servidores`);
             servers.forEach((server)=>{
 
                 // buscamos la informacion de cada uno de los servidores
@@ -79,16 +115,44 @@ export default function(){
                 .then(updateServer) // updateServer(server_serverData)
                 // guardar los datos recuperados
                 .then(saveData)     // saveData(server_serverData)
+                // revisar si los datos generan alguna alerta
+                .then(checkForAlerts)
                 // terminamos mostrando los datos
-                .then((result)=>{
-                    console.log(`Datos de '${server.name}' (${server.host}:${server.port}) guardados correctamente`);
+                .then((savedData)=>{
+                    console.log(`[Job] Datos de '${server.name}' (${server.host}:${server.port}) guardados correctamente`);
                 })
-                .catch((err)=>{
-                    console.log(err);
+                .catch((errorEvent)=>{
+                    if(errorEvent instanceof Object){
+                        console.log(`[Incident] ${errorEvent.message}`);
+
+                        Incident.createOrAppendEvent({
+                            idServer: server.id,
+                            title: errorEvent.title,
+                            component: errorEvent.component,
+                            message: errorEvent.message,
+                            extra: errorEvent.extra
+                        })
+
+                    }else{
+                        console.log('[Incident] error no capturado: errorEvent');
+
+                        //let incident = new Event({
+                        //    idServer: server.id,
+                        //    title: 'errorEvent',
+                        //    component: 'NOT_HANDLED',
+                        //    events: [{
+                        //        message: errorEvent.message,
+                        //        extra:{
+                        //            error: errorEvent
+                        //        }
+                        //    }]
+                        //})
+                        //incident.save(({server: true}))
+                    }
                 })
             })
         })
         .catch((err)=>{
-            console.log(`Error al obtener la lista de servidores: ${err.message}`);
+            console.log(`[Job] Error al obtener la lista de servidores: ${err.message}`);
         })
 }
