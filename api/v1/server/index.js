@@ -1,34 +1,40 @@
-import express from 'express';
+import express from 'express'
 import * as controller from './controller.js'
-import * as auth from '../../middlewares/auth.js';
-import Server from '../../../db/Server.js';
+import * as auth from '../../middlewares/auth.js'
+import Server from '../../../db/Server.js'
 
-let router = express.Router();
+let serverRouter = express.Router()
+import incidentRouter from './incidents/index.js'
 
 /*
  * Params
  */
-router.param('serverHost', function(req, res, next, serverHost){
+serverRouter.param('serverHost', function(req, res, next, serverHost){
     // si existe el server que busca, lo agrega a la respuesta
     Server.get(serverHost).run()
     .then((server)=>{
-        req.server = server;
-        next();
+        req.server = server
+        next()
     })
     // si no, llama a next(err), y ejecuta los middlewares de error
     .catch(next)
-});
+})
 
 /*
  * Rutas, middlewares y controllers
  */
-router.route('/')
+// GET/POST - v1/server/
+serverRouter.route('/')
     .get(controller.getAllServers)
-    .post(auth.isAuthenticated, controller.createServer);
+    .post(auth.isAuthenticated, controller.createServer)
 
-router.route('/:serverHost')
+// GET/PUT/DEL - v1/server/sd8gf45a5g54-s2ds5g12sd5ds/
+serverRouter.route('/:serverHost')
     .get(controller.getServer)
     .put(auth.isAuthenticated, controller.updateServer)
-    .delete(auth.isAuthenticated, controller.deleteServer);
+    .delete(auth.isAuthenticated, controller.deleteServer)
 
-export default router;
+// v1/server/sd8gf45a5g54-s2ds5g12sd5ds/incidents
+serverRouter.use('/:serverHost/incidents', incidentRouter)
+
+export default serverRouter

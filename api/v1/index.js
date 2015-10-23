@@ -1,10 +1,13 @@
-import express from 'express';
-let router = express.Router();
+import express from 'express'
+let rootRouter = express.Router()
 
 /*
  * Sub Routes
  */
-import server from './server'
-router.use('/server', server);
+import serverRouter from './server'
+import incidentRouter from './incident'
 
-export default router;
+rootRouter.use('/server', serverRouter)
+rootRouter.use('/incident', incidentRouter)
+
+export default rootRouter

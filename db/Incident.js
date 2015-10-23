@@ -28,6 +28,7 @@ let Incident = thinky.createModel('Incident', {
 Incident.ensureIndex('id')
 Incident.belongsTo(Server, 'server', 'idServer', 'id')
 
+// https://thinky.io/documentation/api/model/
 // Metodos de la Clase
 Incident.defineStatic('createOrAppendEvent', (event)=>{
     // Buscar si existe un/unos incidentes abiertos para este evento en este servidor
