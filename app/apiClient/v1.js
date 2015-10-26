@@ -20,16 +20,16 @@ axios.interceptors.response.use((response)=>{
 })
 
 export let server = {
-    getAll: ()=>{
+    getAll(){
         return axios.get(`/v1/server`)
     },
-    update: (server)=>{
+    update(server){
         return axios.put(
             `/v1/server/${server.id}`,
             server
         )
     },
-    create: (server)=>{
+    create(server){
         // convert 'port' from number to string
         server.port = ''+server.port
         return axios.post(
@@ -37,9 +37,20 @@ export let server = {
             server
         )
     },
-    delete: (serverID)=>{
+    delete(serverID){
         return axios.delete(
             `/v1/server/${serverID}`
         )
+    },
+    incidents(serverID){
+        return axios.get(`/v1/server/${serverID}/incidents`)
+    },
+}
+export let incident = {
+    get(id){
+        return axios.get(`/v1/incident/${id}`)
+    },
+    resolve(id){
+        return axios.post(`/v1/incident/${id}/resolve`)
     }
 }

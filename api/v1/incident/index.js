@@ -25,6 +25,14 @@ let getIncident = (req, res)=>{
     res.json(req.incident)
 }
 
+let resolveIncident = (req, res, next)=>{
+    req.incident.resolve()
+    .then(()=>{
+        res.json(req.incident)
+    })
+    .catch(next)
+}
+
 /**
  * Routes
  */
@@ -32,7 +40,15 @@ let getIncident = (req, res)=>{
 router.route('/:incidentId')
     .get(auth.isAuthenticated, getIncident)
 
+// POST  - /v1/incident/56d89d89a5ds5-ds5ads4g8asd4ds/resolve
 router.route('/:incidentId/resolve')
-    .get(auth.isAuthenticated, resolveIncident)
+    .post(auth.isAuthenticated, resolveIncident)
 
 export default router
+
+//queda pendiente dejar esto disponible para la UI:
+//    que axios pida los datos
+//hacer los ocmponentes de react
+//actualizar el contador de eventos para un servidor
+//incrementar contador al crear un evento
+//decrementear contador al hacer 'resolve'

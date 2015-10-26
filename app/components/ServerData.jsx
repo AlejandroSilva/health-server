@@ -1,5 +1,5 @@
 // React, Redux, Router
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
@@ -61,4 +61,7 @@ class ServerData extends React.Component {
         )
     }
 }
+//ServerData.propTypes = {
+//    theServer: PropTypes.object.isRequired
+//}
 export default ServerData

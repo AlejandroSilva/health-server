@@ -4,6 +4,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 let app = express();
+import { __IS_DEVELOPMENT__ } from '../config/index.js'
 
 /**
  * Options
@@ -19,7 +20,11 @@ app.use(bodyParser.urlencoded({
 }));
 // parse application/json
 app.use(bodyParser.json());
-app.use(morgan('combined'));
+if(__IS_DEVELOPMENT__){
+    app.use(morgan('dev'));
+}else{
+    app.use(morgan('combined'));
+}
 // serving static files
 app.use(express.static('public'));
 

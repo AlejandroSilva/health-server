@@ -4,7 +4,7 @@
   "description": "nodo heath para el envio de informacion del sistema",
   "main": "index.js",
   "scripts": {
-    "babel-dev":  "NODE_ENV=development babel-node health-server.js --source-maps --loglevel error",
+    "babel-dev": "NODE_ENV=development babel-node health-server.js --source-maps --loglevel error",
     "babel-prod": "NODE_ENV=production  babel-node health-server.js --source-maps",
     "test-v1": "NODE_ENV=testing ./node_modules/.bin/mocha --compilers js:babel/register --timeout 8000 test/v1.js "
   },
@@ -17,6 +17,7 @@
     "helmet": "^0.10.0",
     "history": "^1.10.2",
     "lodash": "^3.10.1",
+    "moment": "^2.10.6",
     "morgan": "^1.6.1",
     "node-schedule": "^0.2.9",
     "react": "^0.14.0-rc1",
