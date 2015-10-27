@@ -9,18 +9,18 @@ import socket from 'socket.io'
  * Iniciar el server
  */
 let server = app.listen(appConfig.port, function() {
-    console.log(`Servicio iniciado en http://localhost:${appConfig.port}/`);
+    console.log(`Servicio iniciado en http://localhost:${appConfig.port}/`)
 });
 
-import schedule from 'node-schedule';
-import getNodesData from './jobs/getNodesData.js';
+import schedule from 'node-schedule'
+import getNodesData from './jobs/getNodesData.js'
 
 //// every 20 second...
-let j0 = schedule.scheduleJob({second: 0}, getNodesData);
+let j0 = schedule.scheduleJob({second: 0}, getNodesData)
 //let j1 = schedule.scheduleJob({second: 10}, getNodesData);
-let j2 = schedule.scheduleJob({second: 20}, getNodesData);
+let j2 = schedule.scheduleJob({second: 20}, getNodesData)
 //let j3 = schedule.scheduleJob({second: 30}, getNodesData);
-let j4 = schedule.scheduleJob({second: 40}, getNodesData);
+let j4 = schedule.scheduleJob({second: 40}, getNodesData)
 //let j5 = schedule.scheduleJob({second: 50}, getNodesData);
 
 
@@ -66,6 +66,7 @@ var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var webpackConfig = require('./webpack.config.js');
 
+/*
 if(__IS_DEVELOPMENT__){
     new WebpackDevServer(webpack(webpackConfig), {
         hot: true,
@@ -84,3 +85,4 @@ if(__IS_DEVELOPMENT__){
             }
         });
 }
+*/

@@ -1,9 +1,15 @@
-import Server from '../../../db/Server.js'
+//import Server from '../../../db/Server.js'
+//import Incident from '../../../db/Incident.js'
+//import thinky from '../../../db/thinky.js'
+import { Server, Incident } from '../../../db/index.js'
 
 export default {
     // GET /v1/server/
     getAllServers(req, res){
-        Server.run()
+        Server
+            // ToDo: calcular a cada servidor la cantidad de incidentes abiertos
+            .includeIncidents()
+            .run()
             .then((servers)=>{
                 res.json(servers);
             })
@@ -22,6 +28,7 @@ export default {
 
         newServer.save()
             .then(function(result) {
+                // ToDO: agregar a la respuesta del nuevo servidor, loas incidentes
                 res.json(result);
             })
             .error((err)=>{
@@ -33,6 +40,7 @@ export default {
 
     // GET /v1/server/:serverHost
     getServer(req, res){
+        // ToDO: agregar a la respuesta del nuevo servidor, loas incidentes
         res.json(req.server);
     },
 
@@ -42,6 +50,7 @@ export default {
         req.server.name = req.body.name
         req.server.port = req.body.port
         req.server.project = req.body.project
+        // ToDO: agregar a la respuesta del nuevo servidor, loas incidentes
         req.server.save()
             .then(function(result) {
                 res.status(200).json(result);

@@ -1,7 +1,9 @@
 import express from 'express'
 import * as controller from './controller.js'
 import * as auth from '../../middlewares/auth.js'
-import Server from '../../../db/Server.js'
+// Models
+import { Server } from '../../../db/index.js'
+//import Server from '../../../db/Server.js'
 
 let serverRouter = express.Router()
 import incidentRouter from './incidents/index.js'
@@ -11,13 +13,16 @@ import incidentRouter from './incidents/index.js'
  */
 serverRouter.param('serverHost', function(req, res, next, serverHost){
     // si existe el server que busca, lo agrega a la respuesta
-    Server.get(serverHost).run()
-    .then((server)=>{
-        req.server = server
-        next()
-    })
-    // si no, llama a next(err), y ejecuta los middlewares de error
-    .catch(next)
+    Server
+        .get(serverHost)
+        .includeIncidents()
+        .run()
+        .then((server)=>{
+            req.server = server
+            next()
+        })
+        // si no, llama a next(err), y ejecuta los middlewares de error
+        .catch(next)
 })
 
 /*
