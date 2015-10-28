@@ -10,14 +10,23 @@ axios.interceptors.request.use((config)=>{
     }
     return config
 })
-axios.interceptors.response.use((response)=>{
-   // Si existe un problema de red, terminar la promesa
-    if( response instanceof Error ){
-        return Promise.reject(response.message)
-    }else{
-        return Promise.resolve(response.data)
+axios.interceptors.response.use(
+    (response)=>{
+       // Si existe un problema de red, terminar la promesa
+        if( response instanceof Error ){
+            return Promise.reject(response.message)
+        }else{
+            return Promise.resolve(response.data)
+        }
+    },
+    (badResponse)=>{
+        if( badResponse instanceof Error ){
+            return Promise.reject(badResponse.message)
+        }else{
+            return Promise.reject(badResponse.data)
+        }
     }
-})
+)
 
 export let server = {
     getAll(){

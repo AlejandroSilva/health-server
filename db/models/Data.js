@@ -2,6 +2,7 @@ let Data
 export default (thinky)=>{
     // https://thinky.io/documentation/schemas/
     let type = thinky.type
+    let r = thinky.r
 
     Data = thinky.createModel('Data', {
         id: type.string(),
@@ -17,6 +18,9 @@ export default (thinky)=>{
     })
 
     Data.configureModel = ()=>{
+        // Models
+        let Server = thinky.models.Server
+
         Data.ensureIndex('id')
         Data.belongsTo(Server, 'server', 'idServer', 'id')
     }

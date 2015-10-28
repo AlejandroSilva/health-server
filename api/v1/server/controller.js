@@ -1,7 +1,7 @@
-//import Server from '../../../db/Server.js'
-//import Incident from '../../../db/Incident.js'
-//import thinky from '../../../db/thinky.js'
-import { Server, Incident } from '../../../db/index.js'
+import {
+    Server,
+    Incident
+} from '../../../db/index.js'
 
 export default {
     // GET /v1/server/

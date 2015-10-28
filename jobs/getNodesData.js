@@ -1,9 +1,7 @@
 // fetch remote data
 import axios from 'axios';
 // Models
-import Server from '../db/Server.js';
-import Data from '../db/Data.js';
-import Incident from '../db/Incident.js';
+import { Server, Data, Incident } from '../db/index.js'
 
 function fetchData(server){
     return new Promise((resolve, reject)=>{

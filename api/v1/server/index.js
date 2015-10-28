@@ -3,7 +3,6 @@ import * as controller from './controller.js'
 import * as auth from '../../middlewares/auth.js'
 // Models
 import { Server } from '../../../db/index.js'
-//import Server from '../../../db/Server.js'
 
 let serverRouter = express.Router()
 import incidentRouter from './incidents/index.js'

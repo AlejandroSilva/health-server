@@ -42,13 +42,16 @@ class ServerEvents extends React.Component {
         .catch(err=>console.log(err))
     }
     resolveIncident(incidentId){
-        API.incident.resolve(incidentId)
+        // se retorna la promsea, para que Incident.jsx sepa como termino
+        let resolvePromise = API.incident.resolve(incidentId)
+        resolvePromise
             .then(updatedIncident=>{
                 this.setState({
                     incidents: this.state.incidents.map(incident=>incident.id===updatedIncident.id? updatedIncident:incident)
                 })
             })
             //.catch(err=>console.log(err))
+        return resolvePromise
     }
     render() {
         if(this.state.loading){

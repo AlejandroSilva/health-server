@@ -2,6 +2,7 @@ let Incident
 export default (thinky)=> {
     // https://thinky.io/documentation/schemas/
     let type = thinky.type
+    let r = thinky.r
 
     Incident = thinky.createModel('Incident', {
         id: type.string(),
@@ -85,7 +86,7 @@ export default (thinky)=> {
         })
 
         // ### Metodos del documento
-        Incident.define('resolve', function(a){
+        Incident.define('resolve', function(){
             this.resolved = true
             return this.save()
         })

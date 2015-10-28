@@ -1,5 +1,5 @@
 // DB
-import Incident from '../../../db/Incident.js'
+import { Incident } from '../../../db/index.js'
 
 // Express / Routers
 import express from 'express'
@@ -46,9 +46,11 @@ router.route('/:incidentId/resolve')
 
 export default router
 
-//queda pendiente dejar esto disponible para la UI:
-//    que axios pida los datos
-//hacer los ocmponentes de react
-//actualizar el contador de eventos para un servidor
-//incrementar contador al crear un evento
-//decrementear contador al hacer 'resolve'
+/*
+ queda pendiente dejar esto disponible para la UI:
+OK que axios pida los datos
+   hacer los ocmponentes de react
+   actualizar el contador de eventos para un servidor
+   incrementar contador al crear un evento
+   decrementear contador al hacer 'resolve'
+*/

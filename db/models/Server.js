@@ -18,7 +18,7 @@ export default (thinky)=> {
     },{
         //enforce_missing: true,      // validacion obliga a tener los campos
         // NO USAR enforce_extra si se tienen metodos que agreguen campos nuevos
-        enforce_extra: 'remove',    // elimina los campos que no estan en el modelo
+        //enforce_extra: 'remove',    // elimina los campos que no estan en el modelo
         enforce_type: 'strict'     // los campos deben ser del mismo tipo que esta declarado
     })
 
@@ -33,15 +33,15 @@ export default (thinky)=> {
         });
 
         Server.defineStatic('includeIncidents', function () {
-            return this.merge(function (row) {
+            return this.merge(function(row){
                 return {
-                    //unresolvedIncidents: 999999
-                    unresolvedIncidents: Incident.filter({
+                    // consulta anidada con thinky
+                    unresolvedIncidents: r.table(Incident.getTableName()).filter({
                         idServer: row('id'),
                         resolved: false
-                    }).count()
+                    }).count() //.coerceTo('array')
                 }
-            })
+            })//.execute()
         })
     }
 }

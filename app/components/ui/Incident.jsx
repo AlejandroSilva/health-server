@@ -1,7 +1,24 @@
 import React, { PropTypes } from 'react'
 import moment from 'moment'
+// Components
+import Alert from './Alert.jsx'
 
 class Incident extends React.Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            error: null
+        }
+    }
+    resolveIncident(){
+        this.props.resolveIncident(this.props.data.id)
+        .then(updatedIncident=>{
+            this.setState({error: null})
+        })
+        .catch(err=>{
+            this.setState({error: err.message})
+        })
+    }
     render(){
         let data = this.props.data
         let badgeSpan
@@ -22,12 +39,17 @@ class Incident extends React.Component {
                                 </button>
                                 :
                                 <button className="btn btn-success"
-                                        onClick={()=>this.props.resolveIncident(this.props.data.id)}>
+                                        onClick={this.resolveIncident.bind(this)}>
                                     Resolver
                                 </button>
                             }
                         </span>
                     </h3>
+                    {this.state.error?
+                        <Alert title="Error al resolver el Incidente" message={this.state.error} show={true}/>
+                        :
+                        null
+                    }
                 </div>
                 <div className="box-body">
                     <table className="table table-condensed">
@@ -55,8 +77,8 @@ Incident.propTypes = {
     data: PropTypes.shape({
         component: PropTypes.string.isRequired,
         createdAt: PropTypes.string.isRequired,
-        id: PropTypes.string,
-        idServer: PropTypes.string,
+        id: PropTypes.string.isRequired,
+        idServer: PropTypes.string.isRequired,
         resolved: PropTypes.bool.isRequired,
         title: PropTypes.string.isRequired,
         events: PropTypes.arrayOf(

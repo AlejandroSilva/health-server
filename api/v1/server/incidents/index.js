@@ -3,7 +3,7 @@ let incidentRouter = express.Router({
     mergeParams: true
 })
 // DB
-import Incident from '../../../../db/Incident.js'
+import { Incident } from '../../../../db/index.js'
 /**
  * Controllers
  */
