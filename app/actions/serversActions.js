@@ -1,4 +1,5 @@
 import * as API from '../apiClient/v1.js'
+// Server Data
 export const GET_SERVERS = 'GET_SERVERS'
 export const ADD_SERVER    = 'ADD_SERVER'
 export const UPDATE_SERVER = 'UPDATE_SERVER'
@@ -6,6 +7,8 @@ export const DELETE_SERVER = 'DELETE_SERVER'
 export const ADD_SERVER_SOCKET = 'ADD_SERVER_SOCKET'
 export const UPDATE_SERVER_SOCKET = 'UPDATE_SERVER_SOCKET'
 export const DELETE_SERVER_SOCKET = 'DELETE_SERVER_SOCKET'
+// Incidents Counter
+export const INCIDENT_COUNTER_SOCKET  = 'INCIDENT_COUNTER_SOCKET'
 
 // llamado al cargar la pagina
 export const getServers = (callback)=>{
@@ -59,6 +62,7 @@ export const updateServer = (updatedServer, callback)=>{
             .catch(callback)
     }
 }
+
 // llamado desde socket cuando llega un dato nuevo
 export const updateServerFromSocket = (updatedServer)=>{
     return {
@@ -93,6 +97,14 @@ export const deleteServerFromSocket = (serverID)=>{
         type: DELETE_SERVER_SOCKET,
         serverID
     };
+}
+
+// Incidentes de los servidores
+export const incidentCounterUpdateFromSocket = (counterUpdate)=>{
+    return {
+        type: INCIDENT_COUNTER_SOCKET,
+        counterUpdate
+    }
 }
 
 /*

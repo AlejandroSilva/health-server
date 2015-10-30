@@ -33,7 +33,10 @@ io.on('connection', (socket)=>{
     })
 })
 
-import { Server } from './db/index.js'
+import {
+    Server,
+    Incident
+} from './db/index.js'
 Server
     .changes()
     .then((feed)=> {
@@ -43,22 +46,46 @@ Server
             }
             if (!server.isSaved()) {
                 // server eliminado
-                io.emit(`serverDeleted`, server)
+                io.emit('serverDeleted', server)
                 console.log(`[SocketIO] 'serverDeleted' emited. (Server:${server.id}).`)
 
             }else if (server.getOldValue() === null) {
-                // new server
-                io.emit(`serverCreated`, server)
-                console.log(`[SocketIO] 'serverCreated' emited. (Server:${server.id}).`)
+                Server.get(server.id).includeIncidents().run().then((serverCreated)=> {
+                    // new server
+                    io.emit('serverCreated', serverCreated)
+                    console.log(`[SocketIO] 'serverCreated' emited. (Server:${serverCreated.id}).`)
+                })
 
             }else{
-                io.emit(`serverUpdated`, server)
-                console.log(`[SocketIO] 'serverUpdated' emited. (Server:${server.id}).`)
+                Server.get(server.id).includeIncidents().run().then((serverUpdated)=> {
+                    io.emit('serverUpdated', serverUpdated)
+                    console.log(`[SocketIO] 'serverUpdated' emited. (Server:${serverUpdated.id}).`)
+                })
             }
         })
     })
     .catch((err)=>{
         console.log(err)
+    })
+Incident
+    .without({events: true})
+    .changes()
+    .then(feed=>{
+        feed.each((err, incident)=>{
+            // Cuando ocurre un cambio en los incidentes (creacion, eliminacion, resolucion, etc)
+            // calculamos la nueva cantidad de incidentes no resueltos y se lo entregamos al cliente
+            Server
+                .get(incident.idServer)
+                .includeIncidents()
+                .run().then((server)=> {
+                    console.log(`[SocketIO] 'incidentCounterUpdate' emited. (Server:${server.id}).`)
+                    io.emit('incidentCounterUpdate', {
+                        idServer: server.id,
+                        unresolvedIncidents: server.unresolvedIncidents
+                    })
+                })
+                .catch(console.log)
+        })
     })
 
 // we start a webpack-dev-server with our config

@@ -42,18 +42,25 @@ class App extends React.Component {
         this.props.getServers(()=>{})
 
         // realizar la conexion por sockets para recibir los cambios
-        socket.on('serverCreated', (server)=>{
+        socket.on('serverCreated', server=>{
             //console.log("created:", server)
             this.props.addServerFromSocket(server)
         })
-        socket.on('serverUpdated', (server)=>{
+        socket.on('serverUpdated', server=>{
             //console.log("from socket: ", server.updatedAt)
             this.props.updateServerFromSocket(server)
         })
-        socket.on('serverDeleted', (server)=>{
+        socket.on('serverDeleted', server=>{
             //console.log("deleted: ", server)
             this.props.deleteServerFromSocket(server.id)
         })
+
+        // Incidents
+        socket.on('incidentCounterUpdate', counterUpdate=>{
+            console.log('incidentCounterUpdate', counterUpdate)
+            this.props.incidentCounterUpdateFromSocket(counterUpdate)
+        })
+
     }
     render() {
         return (

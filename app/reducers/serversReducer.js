@@ -53,6 +53,23 @@ export let serversReducer = (state=defaultState, action={})=>{
 
         default:
             return state;
+
+        // Incidentes
+        case serverAction.INCIDENT_COUNTER_SOCKET:
+            let list_counterUpdated = state.list.map(server=>{
+                if(server.id===action.counterUpdate.idServer){
+                    return {
+                        ...server,
+                        unresolvedIncidents: action.counterUpdate.unresolvedIncidents
+                    }
+                }else{
+                    return server
+                }
+            })
+            return Object.assign({}, state, {
+                list: list_counterUpdated
+            })
+        break
     }
 }
 

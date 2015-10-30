@@ -46,7 +46,7 @@ class Incident extends React.Component {
                         </span>
                     </h3>
                     {this.state.error?
-                        <Alert title="Error al resolver el Incidente" message={this.state.error} show={true}/>
+                        <Alert title="Error al resolver el Incidente" message={this.state.error} show={this.state.error}/>
                         :
                         null
                     }
