@@ -53,23 +53,38 @@ class ServerEvents extends React.Component {
             //.catch(err=>console.log(err))
         return resolvePromise
     }
+    loadEvents(incidentId){
+        // se retorna la promsea, para que Incident.jsx sepa como termino
+        API.incident.get(incidentId)
+            .then(updatedIncident=>{
+                this.setState({
+                    incidents: this.state.incidents.map(incident=>incident.id===updatedIncident.id? updatedIncident:incident)
+                })
+            })
+            .catch(err=>console.log(err))
+    }
     render() {
         if(this.state.loading){
             return (
                 <h1>Cargando...</h1>
             )
-        }
-        else if(this.state.incidents.length===0) {
+
+        } else if(this.state.incidents.length===0) {
             return (
                 <h1>Sin incidentes registrados</h1>
             )
+
         }else{
             return (
                 <div>
                     {this.state.incidents.map((incident, index)=>
                         <div className="row" key={index}>
                             <div className="col-md-12">
-                                <Incident data={incident} resolveIncident={this.resolveIncident.bind(this)}/>
+                                <Incident
+                                    data={incident}
+                                    resolveIncident={this.resolveIncident.bind(this)}
+                                    loadEvents={this.loadEvents.bind(this)}
+                                />
                             </div>
                         </div>
                     )}

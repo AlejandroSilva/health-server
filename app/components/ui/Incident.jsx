@@ -19,6 +19,9 @@ class Incident extends React.Component {
             this.setState({error: err.message})
         })
     }
+    loadEvents(){
+        this.props.loadEvents(this.props.data.id)
+    }
     render(){
         let data = this.props.data
         let badgeSpan
@@ -28,17 +31,44 @@ class Incident extends React.Component {
             badgeSpan = <span className="label label-danger" style={{paddingTop:0, paddingBottom:0}}>No resuelto</span>
         }
 
+        // Si tiene eventos cargados, mostrarlos, si no, mostrar el boton para hacerlo
+        let boxBody
+        if(data.events.length===0){
+            boxBody = (
+                <button type="button" className="btn btn-primary btn-sm" onClick={this.loadEvents.bind(this)}>
+                    Cargar eventos
+                </button>
+            )
+        }else{
+            boxBody = <table className="table table-condensed">
+                <thead>
+                <tr>
+                    <th>Fecha/Hora</th>
+                    <th>Descripcion del evento</th>
+                </tr>
+                </thead>
+                <tbody>
+                {data.events.map((event, index)=>
+                        <tr key={index}>
+                            <td>{moment(event.timestamp).locale('es').fromNow()}</td>
+                            <td>{event.message}</td>
+                        </tr>
+                )}
+                </tbody>
+            </table>
+        }
+
         return(
             <div className="box box-solid">
-                <div className="box-header with-border">
+                <div className="box-header with-border" style={{paddingBottom:0}}>
                     <h3>{badgeSpan} {data.title}   <small>creado {moment(data.createdAt).locale('es').fromNow()}</small>
                         <span className="pull-right">
                             {data.resolved?
-                                <button className="btn btn-default" disabled>
+                                <button className="btn btn-default btn-sm" disabled>
                                     Resuelto
                                 </button>
                                 :
-                                <button className="btn btn-success"
+                                <button className="btn btn-success btn-sm"
                                         onClick={this.resolveIncident.bind(this)}>
                                     Resolver
                                 </button>
@@ -52,22 +82,7 @@ class Incident extends React.Component {
                     }
                 </div>
                 <div className="box-body">
-                    <table className="table table-condensed">
-                        <thead>
-                            <tr>
-                                <th>Fecha/Hora</th>
-                                <th>Descripcion del evento</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {data.events.map((event, index)=>
-                                <tr key={index}>
-                                    <td>{moment(event.timestamp).locale('es').fromNow()}</td>
-                                    <td>{event.message}</td>
-                                </tr>
-                        )}
-                        </tbody>
-                    </table>
+                    {boxBody}
                 </div>
             </div>
         )
@@ -89,6 +104,7 @@ Incident.propTypes = {
             })
         )
     }).isRequired,
-    resolveIncident: PropTypes.func.isRequired
+    resolveIncident: PropTypes.func.isRequired,
+    loadEvents: PropTypes.func.isRequired
 }
 export default Incident

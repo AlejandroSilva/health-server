@@ -11,7 +11,11 @@ let router = express.Router()
  */
 
 router.param('incidentId', function(req, res, next, incidentId){
-    Incident.get(incidentId).run()
+    Incident
+        .get(incidentId)
+        // los eventos de cada incidente tienen que estar ordenados por la fecha en que ocurrieron
+        .eventsOrderByTimestamp()
+        .run()
         .then(incident=>{
             req.incident = incident
             next()

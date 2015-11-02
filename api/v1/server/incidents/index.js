@@ -13,9 +13,8 @@ let getIncidents = (req, res)=>{
         .filter({idServer: req.server.id})
         // incidentes nuevos primero
         .orderByCreatedAt()
-        // los eventos de cada incidente tienen que estar ordenados por la fecha en que ocurrieron
-        .eventsOrderByTimestamp()
-        // ToDo: quitar los eventos, para hacer la respuesta mas chica
+        // Quitar los eventos, para hacer la respuesta mas chica (o la respuesta puede tener mucho MB de tamaño
+        .removeEvents()
         .run()
         .then((incidents)=>{
             res.json(incidents);

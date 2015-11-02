@@ -44,6 +44,14 @@ export default (thinky)=> {
             })
         })
 
+        Incident.defineStatic('removeEvents', function(){
+            return this.merge(function(row) {
+                return {
+                    events: []
+                }
+            })
+        })
+
         Incident.defineStatic('createOrAppendEvent', (event)=>{
             // Buscar si existe un/unos incidentes abiertos para este evento en este servidor
             Incident.filter({
