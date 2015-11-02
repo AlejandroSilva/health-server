@@ -51,9 +51,6 @@ export let serversReducer = (state=defaultState, action={})=>{
             })
         break
 
-        default:
-            return state;
-
         // Incidentes
         case serverAction.INCIDENT_COUNTER_SOCKET:
             let list_counterUpdated = state.list.map(server=>{
@@ -70,6 +67,9 @@ export let serversReducer = (state=defaultState, action={})=>{
                 list: list_counterUpdated
             })
         break
+
+        default:
+            return state;
     }
 }
 

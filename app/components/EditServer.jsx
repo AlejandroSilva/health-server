@@ -13,7 +13,7 @@ import { ServerForm } from './ui/index.js'
 
 @connect(
     (state)=> ({
-        servers: state.servers,
+        servers: state.servers
     }),
     (dispatch)=>{
         // http://rackt.github.io/redux/docs/api/bindActionCreators.html

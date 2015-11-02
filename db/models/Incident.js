@@ -20,8 +20,7 @@ export default (thinky)=> {
         //enforce_missing: true,      // val    idacion obliga a tener los campos
         enforce_extra: 'remove',    // elimina los campos que no estan en el modelo
         enforce_type: 'strict',     // los campos deben ser del mismo tipo que esta declarado
-        validator: function () {
-        }
+        validator: function () {}
     })
 
     Incident.configureModel = ()=>{

@@ -35,7 +35,7 @@ import { ServersList } from './index.js'
 class App extends React.Component {
     static propTypes = {
         children: React.PropTypes.node,
-        servers: React.PropTypes.object,
+        servers: React.PropTypes.object
     }
     componentDidMount(){
         // Obtener la lista de servidores
@@ -57,10 +57,39 @@ class App extends React.Component {
 
         // Incidents
         socket.on('incidentCounterUpdate', counterUpdate=>{
-            console.log('incidentCounterUpdate', counterUpdate)
+            //console.log('incidentCounterUpdate:', counterUpdate)
             this.props.incidentCounterUpdateFromSocket(counterUpdate)
         })
+        socket.on('newIncident', data=>{
+            console.log('newIncident', data)
 
+            if (Notification.permission === "granted") {
+                this.showNotification(data.server, data.incident)
+            }
+            // Otherwise, we need to ask the user for permission
+            else if (Notification.permission !== 'denied') {
+                Notification.requestPermission(permission=>{
+                    // If the user accepts, let's create a notification
+                    if (permission === "granted") {
+                        this.showNotification(data.server, data.incident)
+                    }
+                })
+            }
+        })
+    }
+    showNotification(server, incident){
+        let audio = new Audio('/audio/red_alert.mp3')
+        audio.play()
+        let notification = new Notification(server.name, {
+            body: `[${incident.component}] ${incident.title}`,
+            icon : '/toth_logo.png',
+            sound: '/audio/red_alert.mp3',
+            silent: false
+        })
+        // al hacer click en la notificacion, abrir la pagina de eventos del servidor
+        notification.onclick = ()=>{
+            this.props.history.pushState(null, `/server/${server.id}/events`)
+        }
     }
     render() {
         return (

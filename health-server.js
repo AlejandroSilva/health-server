@@ -78,11 +78,21 @@ Incident
                 .get(incident.idServer)
                 .includeIncidents()
                 .run().then((server)=> {
+                    // Se envian dos eventos: uno con el conteo de eventos, y otro con los datos del evento
                     console.log(`[SocketIO] 'incidentCounterUpdate' emited. (Server:${server.id}).`)
                     io.emit('incidentCounterUpdate', {
                         idServer: server.id,
                         unresolvedIncidents: server.unresolvedIncidents
                     })
+
+                    // Si el evento es nuevo, enviamos sus datos
+                    if(incident.getOldValue()===null){
+                        console.log(`[SocketIO] 'newIncident' emited. (Title:${incident.title}).`)
+                        io.emit('newIncident', {
+                            incident,
+                            server
+                        })
+                    }
                 })
                 .catch(console.log)
         })
