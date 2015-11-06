@@ -4,9 +4,9 @@ var webpack = require('webpack');
 module.exports = {
     entry:  [
         // WebpackDevServer host and port
-        'webpack-dev-server/client?http://0.0.0.0:3001/',
+//        'webpack-dev-server/client?http://0.0.0.0:3001/',
         // "only" prevents reload on syntax errors
-        'webpack/hot/only-dev-server',
+//        'webpack/hot/only-dev-server',
         // Appʼs entry point
 
         './app/boot-client.jsx'
@@ -14,7 +14,7 @@ module.exports = {
     output: {
         path:     path.join(__dirname, 'public'),
         filename: 'bundle.js',
-        publicPath: 'http://localhost:3001/'
+//        publicPath: 'http://localhost:3001/'
         //publicPath: 'http://google.com:84745/public'
     },
     //resolve: {
@@ -28,10 +28,10 @@ module.exports = {
             {test: /\.jsx?$/, exclude: [/node_modules/, /public/], loader: 'babel', query: {stage: 0} }
         ]
     },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
-    ],
+//    plugins: [
+//        new webpack.HotModuleReplacementPlugin(),
+//        new webpack.NoErrorsPlugin()
+//    ],
     devtool: 'inline-source-map',
     //devServer: {
     //    hot: true,
