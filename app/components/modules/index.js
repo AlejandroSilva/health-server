@@ -1,4 +1,4 @@
-import CPU from './CPU.jsx'
+import CPU from './cpu.jsx'
 import DICOM from './DICOM.jsx'
 import DiscIO from './DiscIO.jsx'
 import DiscMounted from './DiscMounted.jsx'
