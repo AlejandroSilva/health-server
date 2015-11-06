@@ -1,7 +1,7 @@
 import * as rethink from './rethinkdb.js'
 import * as app from './app.js'
 
-let environment = process.env.NODE_ENV || 'development'
+let environment = process.env.NODE_ENV || 'production'
 const __IS_PRODUCTION__ = environment==='production'
 const __IS_TESTING__ = environment==='testing'
 let   __IS_DEVELOPMENT__ = environment==='development'
